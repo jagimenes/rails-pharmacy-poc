@@ -1,0 +1,56 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="/produtos">Produtos</a>
+            </li>
+            <li>
+                <a href="/unidades">Unidades de medida</a>
+            </li>
+            <li>
+                <a href="/pedidos">Receitas</a>
+            </li>
+            <li>
+                <a href="/formulas">Fórmulas</a>
+            </li>            
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Produtos mais receitados</h3>
+                    <%= pie_chart Item.group(:produto_id).count, label: "Total", refresh: 60 %>
+                </div>
+                <div class="col-lg-6">
+                    <h3>Total de receitas por dia da semana</h3>
+                    <%= column_chart Pedido.group_by_day_of_week(:created_at, format: "%a").count, label: "Total de receitas Emitidas", refresh: 60 %>
+                </div>
+                <br><br>
+                <div div class="col-lg-8">
+                <br><br>
+                    <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Esconder Barra Lateral</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>

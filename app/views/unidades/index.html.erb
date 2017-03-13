@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Unidades de medida</h1>
+<br>
+<table id="unidades" class="table table-bordered table-condensed table-stripped">
+  <thead>
+    <tr>
+      <th>Unidade</th>
+      <th>Descricao</th>
+      <th>Unidade Pai</th>
+      <th>Fator Conversão</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @unidades.each do |unidade| %>
+      <tr>
+        <td><%= unidade.unidade %></td>
+        <td><%= unidade.descricao %></td>
+        <td><%= unidade.pai.pai %></td>
+        <td><%= unidade.fator %></td>
+        <td><%= link_to 'Editar', edit_unidade_path(unidade), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Excluir', unidade, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' }
+         %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Adicionar Unidade de medida', new_unidade_path, class: "btn btn-primary" %>

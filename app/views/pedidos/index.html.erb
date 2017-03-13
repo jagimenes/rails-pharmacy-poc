@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Receitas Emitidas</h1>
+<br>
+<table id="receitas" class="table table-bordered table-condensed table-stripped">
+  <thead>
+    <tr>
+      <th>Paciente</th>
+      <th>Emissão</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pedidos.each do |pedido| %>
+      <tr>
+        <td><%= pedido.paciente %></td>
+        <td><%= pedido.created_at.strftime("%d/%m/%y") %></td>
+        <td><%= link_to 'Editar', edit_pedido_path(pedido), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Excluir', pedido, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
+        <%= link_to 'Gerar Receita', pedido_export_path(pedido), target: "_blank", class: "btn btn-primary btn-xs" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Adicionar Receita', new_pedido_path, class: "btn btn-primary" %>

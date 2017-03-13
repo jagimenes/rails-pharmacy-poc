@@ -1,0 +1,5 @@
+class AddFatorToUnidade < ActiveRecord::Migration[5.0]
+  def change
+    add_column :unidades, :fator, :double
+  end
+end

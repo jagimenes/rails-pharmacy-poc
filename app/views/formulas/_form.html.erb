@@ -1,0 +1,44 @@
+<%= simple_form_for(@formula) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :nome %>
+    <%= f.input :observacoes %>
+  </div>
+
+
+    <div class="produtos">
+		<%= link_to_add_association 'Adicionar produto', f, :ingredientes,
+		'data-association-node' => '#ingredientes ol',
+		'data-association-insertion-method' => 'append' %>
+<br><br><br><br><br>
+<h4>Produtos da fórmula</h4>
+		<fieldset id='ingredientes' >
+			<ol>
+				<%= f.fields_for :ingredientes do |ingrediente| %>
+					<%= render partial: "ingrediente_fields", locals: {f: ingrediente} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Inserir Fórmula" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	table = $("#ingredientes").dataTable({
+		"searching": false
+	});
+
+$("#ingredientes").dataTable().fnDestroy();
+$('.add_fields').on('click', function() {
+	table = $("#ingredientes").dataTable({
+		"searching": false
+	});
+
+});
+
+
+</script>

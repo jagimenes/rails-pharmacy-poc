@@ -1,0 +1,6 @@
+<div class="nested-fields well well-compact form-inline">
+	<%= f.association :produto, label_method: :descricao, :input_html => {} %>	
+	<%=  f.input :quantidade %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+    <%= link_to_remove_association "Remover", f %>
+</div>

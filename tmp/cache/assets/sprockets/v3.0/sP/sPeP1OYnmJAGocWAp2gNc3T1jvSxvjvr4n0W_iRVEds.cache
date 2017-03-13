@@ -1,0 +1,7 @@
+I"[(function() {
+  jQuery(function() {});
+
+  $('.produtos').DataTable();
+
+}).call(this);
+:ET

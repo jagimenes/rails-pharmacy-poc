@@ -1,0 +1,7 @@
+I"f(function() {
+  jQuery(function() {
+    return $("#unidades").dataTable();
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,40 @@
+<%= simple_form_for(@pedido) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :paciente %>
+  </div>
+
+
+    <div class="produtos">
+		<%= link_to_add_association 'Adicionar produto', f, :items,
+		'data-association-node' => '#items ol',
+		'data-association-insertion-method' => 'after' %>
+
+		<fieldset id='items'>
+			<ol>
+				<%= f.fields_for :items do |item| %>
+					<%= render partial: "item_fields", locals: {f: item} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>
+
+   <div class="manipulados">
+		<%= link_to_add_association 'Adicionar fórmula', f, :manipulados,
+		'data-association-node' => '#manipulados ol',
+		'data-association-insertion-method' => 'after' %>
+
+		<fieldset id='manipulados'>
+			<ol>
+				<%= f.fields_for :manipulados do |manipulado| %>
+					<%= render partial: "manipulado_fields", locals: {f: manipulado} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>    
+
+  <div class="form-actions">
+    <%= f.button :submit, "Inserir Receita" %>
+  </div>
+<% end %>

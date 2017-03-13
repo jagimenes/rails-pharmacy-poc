@@ -1,0 +1,9 @@
+I"„(function() {
+  jQuery(function() {
+    return $("#produtos").dataTable({
+      display: row - border
+    });
+  });
+
+}).call(this);
+:ET

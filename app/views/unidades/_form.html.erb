@@ -1,0 +1,14 @@
+<%= simple_form_for(@unidade) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :unidade %>
+    <%= f.input :descricao %>
+    <%= f.association :pai, label_method: :pai, :label => "Unidade Pai", :input_html => {} %>
+    <%= f.input :fator, :label => "Fator de conversão" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
