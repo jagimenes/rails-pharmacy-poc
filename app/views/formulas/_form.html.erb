@@ -26,19 +26,3 @@
     <%= f.button :submit, "Inserir Fórmula" %>
   </div>
 <% end %>
-
-<script type="text/javascript">
-	table = $("#ingredientes").dataTable({
-		"searching": false
-	});
-
-$("#ingredientes").dataTable().fnDestroy();
-$('.add_fields').on('click', function() {
-	table = $("#ingredientes").dataTable({
-		"searching": false
-	});
-
-});
-
-
-</script>
