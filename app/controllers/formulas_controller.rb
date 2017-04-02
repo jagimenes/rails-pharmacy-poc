@@ -4,7 +4,7 @@ class FormulasController < ApplicationController
   # GET /formulas
   # GET /formulas.json
   def index
-    @formulas = Formula.all
+    @formulas = Formula.where('user_id = ? OR user_id = 0',  current_user.id)
   end
 
   # GET /formulas/1
@@ -25,7 +25,7 @@ class FormulasController < ApplicationController
   # POST /formulas.json
   def create
     @formula = Formula.new(formula_params)
-
+    @formula.user_id = current_user.id
     respond_to do |format|
       if @formula.save
         format.html { redirect_to @formula, notice: 'Fórmula adicionada com sucesso.' }
@@ -69,6 +69,6 @@ class FormulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def formula_params
-      params.require(:formula).permit(:nome, :observacoes, ingredientes_attributes: [:id, :quantidade, :_destroy, :produto_id, :unidade_id ] )
+      params.require(:formula).permit(:nome, :especialidade_id, :observacoes, ingredientes_attributes: [:id, :quantidade, :_destroy, :produto_id, :unidade_id ] )
     end
 end

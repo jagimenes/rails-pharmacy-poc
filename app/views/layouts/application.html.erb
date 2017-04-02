@@ -5,7 +5,6 @@
     <title><%= content_for?(:title) ? yield(:title) : "Projetomedicos" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Projetomedicos" %>">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
     <%= javascript_include_tag 'application', 'cocoon' => 'reload' %>
     <%= csrf_meta_tags %>
   </head>

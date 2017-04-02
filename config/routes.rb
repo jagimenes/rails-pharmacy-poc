@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :especialidades
   resources :formulas
   resources :pedidos do 
       get 'export'

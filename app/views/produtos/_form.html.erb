@@ -8,6 +8,20 @@
     <%= f.association :unidade, label_method: :unidade, :label => "Em", :input_html => {} %>
   </div>
 
+  <div class="especialidades">
+    <%= link_to_add_association 'Adicionar especialidade', f, :grupos,
+    'data-association-node' => '#especialidades ol',
+    'data-association-insertion-method' => 'after' %>
+
+    <fieldset id='especialidades'>
+      <ol>
+        <%= f.fields_for :grupos do |item| %>
+          <%= render partial: "grupo_fields", locals: {f: item} %>
+        <% end %>
+      </ol>
+    </fieldset>
+  </div>
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

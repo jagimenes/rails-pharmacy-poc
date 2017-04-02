@@ -1,5 +1,12 @@
 <div class="nested-fields well well-compact form-inline">
-	<%= f.association :produto, label_method: :descricao, :input_html => {} %>	
+	<%=  f.input :id, :as => :hidden %>
+	<%= f.association :especialidade, label_method: :nome, :label => "Especialidade", :input_html => {} %>
+	<%= f.association :produto, 
+		label_method: :descricao, 
+		:label => "Produto", 
+		:input_html => {}
+		#collection: Produto.where(id: Grupo.select('produto_id').where(especialidade_id: :especialidade_id) )
+	%>
 	<%=  f.input :quantidade %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
     <%= link_to_remove_association "Remover", f %>

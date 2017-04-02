@@ -18,26 +18,30 @@ module GeneratePdf
       # Define a cor do traçado
       pdf.fill_color "666666"
       # Cria um texto com tamanho 30 PDF Points, bold alinha no centro
-      pdf.text "#{usuario.clinica}", :size => 20
-      pdf.move_down 10
-      pdf.text "Endereço: #{usuario.endereco}"
-      pdf.move_down 10
-      pdf.text "Telefone: #{usuario.telefone}"
+      if usuario.cabecalho
+        pdf.text "#{usuario.clinica}", :size => 20
+        pdf.move_down 10
+        pdf.text "Endereço: #{usuario.endereco}"
+        pdf.move_down 10
+        pdf.text "Telefone: #{usuario.telefone}"
+      else
+        pdf.move_down 20
+      end
       # Move 80 PDF points para baixo o cursor
       pdf.move_down 50
       pdf.text "Receita Médica", :size => 16, :style => :bold, :align => :left
       pdf.move_down 35
       # Escreve o texto do contrato com o tamanho de 14 PDF points, com o alinhamento justify
-      pdf.text "Data da consulta: #{pedidoPDF.created_at.strftime("%d/%m/%y")}", :size => 12, :align => :justify, :inline_format => true
+      pdf.text "Data Prescrição: #{pedidoPDF.created_at.strftime("%d/%m/%y")}", :size => 12, :align => :justify, :inline_format => true
       # Move mais 30 PDF points para baixo o cursor
       pdf.move_down 10
       # Escreve o texto com os detalhes que o usuário entrou
       pdf.text "Paciente: #{pedidoPDF.paciente}", :size => 10, :align => :justify, :inline_format => true
       # Move mais 30 PDF points para baixo o cursor
-      pdf.move_down 10
+      pdf.move_down 15
       # Adiciona o nome com 12 PDF points, justify e com o formato inline (Observe que o <b></b> funciona para deixar em negrito)
-      pdf.text "Médico: <b>#{usuario.name} - CRM #{usuario.crm}</b>", :size => 10, :align => :justify, :inline_format => true
-      pdf.move_down 30
+      #pdf.text "Médico: <b>#{usuario.name} - CRM #{usuario.crm}</b>", :size => 10, :align => :justify, :inline_format => true
+      #pdf.move_down 30
       pdf.text "Medicamentos: ", :size => 12, :style => :bold, :align => :left
       pdf.move_down 15
       for items in pedidoPDF.items do

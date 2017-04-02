@@ -17,15 +17,13 @@ protected
     conversao_unidade_formula = quantidade_formula * fator_formula
     conversao_unidade_produto = quantidade_produto * fator_produto
 
-    puts "Fator formula: " + fator_formula.to_s
-    puts "Fator Produto: " + fator_produto.to_s
-    puts "Conversão Unidade formula: " + conversao_unidade_formula.to_s
-    puts "Conversão Unidade produto: " + conversao_unidade_produto.to_s
-
-    if conversao_unidade_formula > conversao_unidade_produto
-    	verifica = false
-    	errors.add(:quantidade, 'Quantidade inválida')
+    unless quantidade_produto.nil?
+      if conversao_unidade_formula > conversao_unidade_produto
+      	verifica = false
+      	errors.add(:quantidade, 'Quantidade inválida')
+      end
     end
+
     verifica
  end
 

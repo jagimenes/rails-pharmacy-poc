@@ -1,4 +1,5 @@
 <div class="nested-fields well well-compact form-inline">
+	<%=  f.input :id, :as => :hidden %>
 	<%= f.association :produto, label_method: :descricao, :label => "Produto", :input_html => {} %>
 	<%=  f.input :quantidade %>
 	<%= f.association :unidade, label_method: :unidade, :label => "UN", :input_html => {} %>

@@ -19,9 +19,14 @@
         <td><%= produto.observacoes %></td>
         <td><%= produto.maximo %></td>
         <td><%= produto.unidade.unidade %></td>
-        <td><%= link_to 'Editar', edit_produto_path(produto), class: "btn btn-primary btn-xs" %>
-        <%= link_to 'Excluir', produto, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' }
-         %></td>        
+        <td>
+            <% if current_user.role == "admin" %>
+            <%= link_to 'Editar', edit_produto_path(produto), class: "btn btn-primary btn-xs" %>
+            <%= link_to 'Excluir', produto, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' }%>
+            <% else %>
+            <%= link_to 'Visualizar', produto_path(produto), class: "btn btn-primary btn-xs" %>
+            <% end %>
+        </td>        
       </tr>
     <% end %>
   </tbody>

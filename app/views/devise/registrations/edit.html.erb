@@ -32,6 +32,10 @@
     <div class="form-group">
       <%= f.label :cpf %>
       <%= f.text_field :cpf, class: 'form-control' %>
+    </div>  
+    <div class="form-group">
+      <label for="cabecalho">Exibe cabecalho ?</label>
+      <%= f.select :cabecalho, [['Sim', true], ['Não', false]], class: "form-control" %>
     </div>                    
     <fieldset>
       <p>Deixe estes campos em branco se não quiser alterar a senha.</p>

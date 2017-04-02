@@ -10,7 +10,9 @@
                 <a href="/produtos">Produtos</a>
             </li>
             <li>
-                <a href="/unidades">Unidades de medida</a>
+                <% if current_user.role == "admin" %>
+                <%= link_to 'Unidades de medida', unidades_path %>
+                <% end %>
             </li>
             <li>
                 <a href="/pedidos">Receitas</a>
@@ -26,13 +28,15 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6">
-                    <h3>Produtos mais receitados</h3>
-                    <%= pie_chart Item.group(:produto_id).count, label: "Total", refresh: 60 %>
+                <div class="col-lg-6" id="grafico1">
+                    <% if current_user.role == "admin" %>
+                    <%= pie_chart Item.group(:produto_id).count, title: "Produtos mais receitados", refresh: 60 %>
+                    <% end %>
                 </div>
-                <div class="col-lg-6">
-                    <h3>Total de receitas por dia da semana</h3>
-                    <%= column_chart Pedido.group_by_day_of_week(:created_at, format: "%a").count, label: "Total de receitas Emitidas", refresh: 60 %>
+                <div class="col-lg-6" id="grafico2">
+                    <% if current_user.role == "admin" %>
+                    <%= column_chart Pedido.group_by_day_of_week(:created_at, format: "%a").count, title: "Total de receitas Emitidas", refresh: 60 %>
+                    <% end %>
                 </div>
                 <br><br>
                 <div div class="col-lg-8">
