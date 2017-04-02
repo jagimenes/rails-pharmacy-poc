@@ -1,11 +1,11 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Especialidades</h1>
+<h1>Cadastro de Especialidades</h1>
 
-<table>
+<table id="especialidades" class="table table-bordered table-condensed table-stripped">
   <thead>
     <tr>
-      <th>Nome</th>
+      <th>Descrição</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,9 +14,10 @@
     <% @especialidades.each do |especialidade| %>
       <tr>
         <td><%= especialidade.nome %></td>
-        <td><%= link_to 'Show', especialidade %></td>
-        <td><%= link_to 'Edit', edit_especialidade_path(especialidade) %></td>
-        <td><%= link_to 'Destroy', especialidade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+            <%= link_to 'Editar', edit_especialidade_path(especialidade), class: "btn btn-primary btn-xs" %>
+            <%= link_to 'Excluir', especialidade, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>        
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Especialidade', new_especialidade_path %>
+<%= link_to 'Adicionar Especialidade', new_especialidade_path, class: "btn btn-primary" %>
