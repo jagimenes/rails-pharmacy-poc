@@ -1,0 +1,41 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li>
+                <a href="#">Dashboard</a>
+            </li>
+            <li>
+                <a href="/produtos">Produtos</a>
+            </li>
+            <li>
+                <a href="/unidades">Unidades de medida</a>
+            </li>
+            <li>
+                <a href="/pedidos">Receitas</a>
+            </li>
+            <li>
+                <a href="/formulas">Fórmulas</a>
+            </li>            
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- Menu Toggle Script -->
+<script>
+$("#menu-toggle").click(function(e) {
+    e.preventDefault();
+    $("#wrapper").toggleClass("toggled");
+});
+</script>
