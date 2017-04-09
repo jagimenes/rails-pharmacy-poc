@@ -47,10 +47,14 @@ module GeneratePdf
       for items in pedidoPDF.items do
         pdf.text "Produto: #{items.produto.descricao} - Quantidade: #{items.quantidade}#{items.unidade.unidade}", :size => 12, :align => :left       
         pdf.move_down 10
+        pdf.text " #{items.posologia}"
+        pdf.move_down 10
       end
       pdf.move_down 20
       for manipulados in pedidoPDF.manipulados do
         pdf.text "Fórmula: #{manipulados.formula.nome} - Quantidade: #{manipulados.quantidade}", :size => 12, :align => :left               
+        pdf.move_down 10
+        pdf.text " #{manipulados.posologia}"
         pdf.move_down 10
         pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
         pdf.move_down 10

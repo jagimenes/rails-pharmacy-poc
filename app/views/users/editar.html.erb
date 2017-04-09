@@ -1,0 +1,27 @@
+<%= simple_form_for(@user) do |f| %>
+
+<h3>Usuário</h3>
+<p>Nome: <%= @user.name if @user.name %></p>
+<p>Email: <%= @user.email if @user.email %></p>
+
+<p>Grupos</p>
+
+
+    <div class="permissaos">
+		<%= link_to_add_association 'Adicionar Grupo', f, :permissaos,
+		'data-association-node' => '#permissaos ol',
+		'data-association-insertion-method' => 'after' %>
+
+		<fieldset id='permissaos'>
+			<ol>
+				<%= f.fields_for :permissaos do |item| %>
+					<%= render partial: "permissao_fields", locals: {f: item} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>
+
+
+<%= f.button :submit, "Inserir Dados" %>
+
+<% end %>

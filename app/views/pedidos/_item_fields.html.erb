@@ -1,13 +1,13 @@
 <div class="nested-fields well well-compact form-inline">
 	<%=  f.input :id, :as => :hidden %>
-	<%= f.association :especialidade, label_method: :nome, :label => "Especialidade", :input_html => {} %>
 	<%= f.association :produto, 
 		label_method: :descricao, 
 		:label => "Produto", 
-		:input_html => {}
-		#collection: Produto.where(id: Grupo.select('produto_id').where(especialidade_id: :especialidade_id) )
+		:input_html => {},
+		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id) 
 	%>
 	<%=  f.input :quantidade %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+	<%=  f.input :posologia %>
     <%= link_to_remove_association "Remover", f %>
 </div>

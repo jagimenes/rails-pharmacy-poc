@@ -28,7 +28,7 @@ class UnidadesController < ApplicationController
 
     respond_to do |format|
       if @unidade.save
-        format.html { redirect_to @unidade, notice: 'Unidade adicionada com sucesso.' }
+        format.html { redirect_to unidades_url, notice: 'Unidade adicionada com sucesso.' }
         format.json { render :show, status: :created, location: @unidade }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UnidadesController < ApplicationController
   def update
     respond_to do |format|
       if @unidade.update(unidade_params)
-        format.html { redirect_to @unidade, notice: 'Unidade atualizada com sucesso.' }
+        format.html { redirect_to unidades_url, notice: 'Unidade atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @unidade }
       else
         format.html { render :edit }

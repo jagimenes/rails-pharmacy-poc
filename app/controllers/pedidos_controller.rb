@@ -15,8 +15,6 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
-    @especialidades = Especialidade.all
-    @dataProdutos = Produto.all
   end
 
   # GET /pedidos/1/edit
@@ -46,7 +44,7 @@ class PedidosController < ApplicationController
       end
 
       if @pedido.save
-        format.html { redirect_to @pedido, notice: 'Receita adicionada com sucesso.' }
+        format.html { redirect_to pedidos_url, notice: 'Receita adicionada com sucesso.' }
         format.json { render :show, status: :created, location: @pedido }
       else
         format.html { render :new }
@@ -62,7 +60,7 @@ class PedidosController < ApplicationController
     @dataProdutos = Produto.all
     respond_to do |format|
       if @pedido.update(pedido_params)
-        format.html { redirect_to @pedido, notice: 'Receita atualizada com sucesso.' }
+        format.html { redirect_to pedidos_url, notice: 'Receita atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @pedido }
       else
         format.html { render :edit }
@@ -102,6 +100,6 @@ class PedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pedido_params
-      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :quantidade, :_destroy, :produto_id, :unidade_id ], manipulados_attributes: [:id, :formula_id, :quantidade, :_destroy, :produto_id ] )
+      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia ], manipulados_attributes: [:id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia ] )
     end
 end

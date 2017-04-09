@@ -28,7 +28,7 @@ class FormulasController < ApplicationController
     @formula.user_id = current_user.id
     respond_to do |format|
       if @formula.save
-        format.html { redirect_to @formula, notice: 'Fórmula adicionada com sucesso.' }
+        format.html { redirect_to formulas_url, notice: 'Fórmula adicionada com sucesso.' }
         format.json { render :show, status: :created, location: @formula }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class FormulasController < ApplicationController
   def update
     respond_to do |format|
       if @formula.update(formula_params)
-        format.html { redirect_to @formula, notice: 'Fórmula atualizada com sucesso.' }
+        format.html { redirect_to formulas_url, notice: 'Fórmula atualizada com sucesso.' }
         format.json { render :show, status: :ok, location: @formula }
       else
         format.html { render :edit }

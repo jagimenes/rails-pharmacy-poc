@@ -8,12 +8,12 @@
     <%= f.association :unidade, label_method: :unidade, :label => "Em", :input_html => {} %>
   </div>
 
-  <div class="especialidades">
-    <%= link_to_add_association 'Adicionar especialidade', f, :grupos,
-    'data-association-node' => '#especialidades ol',
+  <div class="especialidadesProd">
+    <%= link_to_add_association 'Adicionar Grupo', f, :grupos,
+    'data-association-node' => '#especialidadesProd ol',
     'data-association-insertion-method' => 'after' %>
 
-    <fieldset id='especialidades'>
+    <fieldset id='especialidadesProd'>
       <ol>
         <%= f.fields_for :grupos do |item| %>
           <%= render partial: "grupo_fields", locals: {f: item} %>

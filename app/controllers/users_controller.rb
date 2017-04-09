@@ -15,13 +15,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def editar
+    @user = User.find(params[:id])
+    unless current_user.admin?
+      unless @user == current_user
+        redirect_to root_path, :alert => "Acesso negado."
+      end
+    end
+  end
+
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(secure_params)
-      redirect_to users_path, :notice => "Usuário Atualizado."
-    else
-      redirect_to users_path, :alert => "Não foi possível atualizar o usuário."
-    end
+      if @user.update_attributes(secure_params)
+        redirect_to users_path, :notice => "Usuário Atualizado."
+      else
+        redirect_to users_path, :alert => "Não foi possível atualizar o usuário."
+      end
   end
 
   def destroy
@@ -39,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :endereco)
+    params.require(:user).permit(:role, :endereco, permissaos_attributes: [:id, :especialidade_id, :_destroy])
   end
 
 end
