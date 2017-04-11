@@ -3,5 +3,5 @@
 	<%= f.association :produto, label_method: :descricao, :label => "Produto", :input_html => {} %>
 	<%=  f.input :quantidade %>
 	<%= f.association :unidade, label_method: :unidade, :label => "UN", :input_html => {} %>
-    <%= link_to_remove_association "Remover", f %>
+    <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>

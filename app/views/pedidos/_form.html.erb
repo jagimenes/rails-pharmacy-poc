@@ -9,7 +9,7 @@
     <div class="produtos">
 		<%= link_to_add_association 'Adicionar produto', f, :items,
 		'data-association-node' => '#items ol',
-		'data-association-insertion-method' => 'after' %>
+		'data-association-insertion-method' => 'after', class: 'btn btn-success btn-sm' %>
 
 		<fieldset id='items'>
 			<ol>
@@ -23,7 +23,7 @@
    <div class="manipulados">
 		<%= link_to_add_association 'Adicionar fórmula', f, :manipulados,
 		'data-association-node' => '#manipulados ol',
-		'data-association-insertion-method' => 'after' %>
+		'data-association-insertion-method' => 'after', class: 'btn btn-success btn-sm' %>
 
 		<fieldset id='manipulados'>
 			<ol>
@@ -33,7 +33,7 @@
 			</ol>
 		</fieldset>
     </div>    
-
+    <br><br><br><br>
   <div class="form-actions">
     <%= f.button :submit, "Inserir Receita" %>
   </div>

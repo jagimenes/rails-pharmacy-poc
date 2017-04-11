@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   belongs_to :pedido
   belongs_to :produto
   belongs_to :unidade
+  belongs_to :especialidade
   validate :VerificaUnidadeMedida
   validates_presence_of :produto, :quantidade, :unidade
 

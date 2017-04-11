@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170409015145) do
+ActiveRecord::Schema.define(version: 20170411022252) do
 
   create_table "especialidades", force: :cascade do |t|
     t.string   "nome"
@@ -55,9 +55,11 @@ ActiveRecord::Schema.define(version: 20170409015145) do
     t.integer  "produto_id"
     t.integer  "unidade_id"
     t.float    "quantidade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "posologia"
+    t.integer  "especialidade_id"
+    t.index ["especialidade_id"], name: "index_items_on_especialidade_id"
     t.index ["pedido_id"], name: "index_items_on_pedido_id"
     t.index ["produto_id"], name: "index_items_on_produto_id"
     t.index ["unidade_id"], name: "index_items_on_unidade_id"
@@ -67,9 +69,11 @@ ActiveRecord::Schema.define(version: 20170409015145) do
     t.integer  "pedido_id"
     t.integer  "formula_id"
     t.float    "quantidade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "posologia"
+    t.integer  "especialidade_id"
+    t.index ["especialidade_id"], name: "index_manipulados_on_especialidade_id"
     t.index ["formula_id"], name: "index_manipulados_on_formula_id"
     t.index ["pedido_id"], name: "index_manipulados_on_pedido_id"
   end
@@ -141,6 +145,12 @@ ActiveRecord::Schema.define(version: 20170409015145) do
     t.boolean  "cabecalho"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "veiculos", force: :cascade do |t|
+    t.string   "nome"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

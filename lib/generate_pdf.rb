@@ -42,26 +42,22 @@ module GeneratePdf
       # Adiciona o nome com 12 PDF points, justify e com o formato inline (Observe que o <b></b> funciona para deixar em negrito)
       #pdf.text "Médico: <b>#{usuario.name} - CRM #{usuario.crm}</b>", :size => 10, :align => :justify, :inline_format => true
       #pdf.move_down 30
-      pdf.text "Medicamentos: ", :size => 12, :style => :bold, :align => :left
-      pdf.move_down 15
       for items in pedidoPDF.items do
-        pdf.text "Produto: #{items.produto.descricao} - Quantidade: #{items.quantidade}#{items.unidade.unidade}", :size => 12, :align => :left       
+        pdf.text "#{items.produto.descricao} - Quantidade: #{items.quantidade}#{items.unidade.unidade}", :size => 12, :align => :left       
         pdf.move_down 10
         pdf.text " #{items.posologia}"
         pdf.move_down 10
       end
       pdf.move_down 20
       for manipulados in pedidoPDF.manipulados do
-        pdf.text "Fórmula: #{manipulados.formula.nome} - Quantidade: #{manipulados.quantidade}", :size => 12, :align => :left               
+        pdf.text "#{manipulados.formula.nome} - Quantidade: #{manipulados.quantidade}", :size => 12, :align => :left               
         pdf.move_down 10
         pdf.text " #{manipulados.posologia}"
+        #pdf.move_down 10
+        #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
         pdf.move_down 10
-        pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
-        pdf.move_down 10
-        pdf.text "Produtos da fórmula: ", :size => 12, :style => :bold, :align => :left
-        pdf.move_down 20
         for ingredientes in manipulados.formula.ingredientes
-          pdf.text "Produto: #{ingredientes.produto.descricao} - Quantidade: #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 12, :align => :left               
+          pdf.text "#{ingredientes.produto.descricao} - Quantidade: #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 12, :align => :left               
           pdf.move_down 10
         end
       end

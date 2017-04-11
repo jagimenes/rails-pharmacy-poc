@@ -1,0 +1,22 @@
+I"Z(function() {
+  jQuery(function() {
+    $("#receitas").dataTable();
+    return $(document).on('change', '.grupoprod', function(evt) {
+      return $.ajax('update_produtos', {
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          country_id: $(".grupoprod option:selected").val()
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          return console.log("AJAX Error: " + textStatus);
+        },
+        success: function(data, textStatus, jqXHR) {
+          return console.log("Dynamic country select OK!");
+        }
+      });
+    });
+  });
+
+}).call(this);
+:ET

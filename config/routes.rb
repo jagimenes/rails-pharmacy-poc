@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :veiculos
   resources :especialidades
   resources :formulas
   resources :pedidos do 
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
     get "/editar/:id" => "users#editar", as: :editar_usuario
+    get 'produto/update_produtos', as: 'update_produtos'
 end

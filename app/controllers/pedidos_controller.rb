@@ -79,19 +79,6 @@ class PedidosController < ApplicationController
     end
   end
 
-  def getdata
-    # this contains what has been selected in the first select box
-    @dataEspecialidades = Especialidades.all
-
-    # we get the data for selectbox 2
-    @dataProdutos = Produto.where(:some_id => @data_from_select1).all
-
-    # render an array in JSON containing arrays like:
-    # [[:id1, :name1], [:id2, :name2]]
-    render :json => @dataProdutos.map{|c| [c.id, c.descricao]}
-  end
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
