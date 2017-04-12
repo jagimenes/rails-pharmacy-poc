@@ -9,5 +9,13 @@
 		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id)   %>	
 	<%=  f.input :quantidade %>
 	<%=  f.input :posologia %>
+	<%= f.association :veiculo, 
+		label_method: :nome, 
+		:label => "Veiculo", 
+		:input_html => {class: "veicSelect"},
+		collection: Veiculo.all 
+	%>
+	<%=  f.input :quantidade_veiculo %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>

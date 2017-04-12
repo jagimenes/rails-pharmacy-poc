@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
     get "/editar/:id" => "users#editar", as: :editar_usuario
-    get 'produto/update_produtos', as: 'update_produtos'
+
+
 end

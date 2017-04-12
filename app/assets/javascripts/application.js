@@ -19,3 +19,5 @@
 //= require cocoon
 //= require Chart.bundle
 //= require chartkick
+//= require jquery-ui
+//= require autocomplete-rails

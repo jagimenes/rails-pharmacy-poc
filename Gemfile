@@ -52,3 +52,5 @@ gem "prawn"
 gem 'prawn-rails'
 gem 'jquery-datatables'
 gem 'json'
+gem 'rails4-autocomplete'
+gem 'jquery-ui-rails'
