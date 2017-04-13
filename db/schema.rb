@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412034402) do
+ActiveRecord::Schema.define(version: 20170413004820) do
+
+  create_table "diluentes", force: :cascade do |t|
+    t.integer  "produto_id"
+    t.integer  "veiculo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["produto_id"], name: "index_diluentes_on_produto_id"
+    t.index ["veiculo_id"], name: "index_diluentes_on_veiculo_id"
+  end
 
   create_table "especialidades", force: :cascade do |t|
     t.string   "nome"

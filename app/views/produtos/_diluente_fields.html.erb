@@ -1,0 +1,5 @@
+<div class="nested-fields well well-compact form-inline">
+	<%=  f.input :id, :as => :hidden %>
+	<%= f.association :veiculo, label_method: :nome, :label => "Veículo", :input_html => {} %>	
+    <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
+</div>

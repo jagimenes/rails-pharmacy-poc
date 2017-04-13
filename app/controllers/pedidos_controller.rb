@@ -15,10 +15,12 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
+    @unidades = Unidade.all
   end
 
   # GET /pedidos/1/edit
   def edit
+    @unidades = Unidade.all
   end
 
 

@@ -22,6 +22,23 @@
     </fieldset>
   </div>
 
+
+  <div class="veiculosProd">
+    <%= link_to_add_association 'Adicionar Veículo', f, :diluentes,
+    'data-association-node' => '#veiculosProd ol',
+    'data-association-insertion-method' => 'after', class: 'btn btn-success btn-sm' %>
+
+    <fieldset id='veiculosProd'>
+      <ol>
+        <%= f.fields_for :diluentes do |item| %>
+          <%= render partial: "diluente_fields", locals: {f: item} %>
+        <% end %>
+      </ol>
+    </fieldset>
+  </div>
+
+
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>

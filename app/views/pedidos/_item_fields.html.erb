@@ -21,6 +21,11 @@
 		collection: Veiculo.all 
 	%>
 	<%=  f.input :quantidade_veiculo %>
-	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+	<%= f.label :unidade_veiculo_id%>
+	<%= f.select :unidade_veiculo_id,
+	     @unidades.map{ |c| [c.unidade, c.id] },
+	     {}, 
+	     { :class => 'form-control', :label => "Teste"}
+	     %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
