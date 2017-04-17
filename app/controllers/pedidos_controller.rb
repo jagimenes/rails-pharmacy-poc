@@ -34,6 +34,7 @@ class PedidosController < ApplicationController
   # POST /pedidos
   # POST /pedidos.json
   def create
+    @unidades = Unidade.all
     @pedido = Pedido.new(pedido_params)
     puts params.class.name
     puts pedido_params.inspect
@@ -58,6 +59,7 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
+    @unidades = Unidade.all
     @especialidades = Especialidade.all
     @dataProdutos = Produto.all
     respond_to do |format|
@@ -75,6 +77,7 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1.json
   def destroy
     @pedido.destroy
+    @unidades = Unidade.all
     respond_to do |format|
       format.html { redirect_to pedidos_url, notice: 'Receita excluida com sucesso.' }
       format.json { head :no_content }

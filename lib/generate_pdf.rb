@@ -13,7 +13,7 @@ module GeneratePdf
   def self.pedido id_pedido, usuario
     # Apenas uma string aleatório para termos um corpo de texto pro contrato
     pedidoPDF = Pedido.find(id_pedido)
- 
+    imprime_linha = false
     Prawn::Document.new(PDF_OPTIONS) do |pdf|
       # Define a cor do traçado
       pdf.fill_color "666666"
@@ -32,43 +32,63 @@ module GeneratePdf
       pdf.text "Receita Médica", :size => 16, :style => :bold, :align => :left
       pdf.move_down 35
       # Escreve o texto do contrato com o tamanho de 14 PDF points, com o alinhamento justify
-      pdf.text "Data Prescrição: #{pedidoPDF.created_at.strftime("%d/%m/%y")}", :size => 12, :align => :justify, :inline_format => true
+      pdf.text "Data Prescrição: #{pedidoPDF.created_at.strftime("%d/%m/%y")}", :size => 10, :align => :justify, :inline_format => true
       # Move mais 30 PDF points para baixo o cursor
       pdf.move_down 10
       # Escreve o texto com os detalhes que o usuário entrou
-      pdf.text "Paciente: #{pedidoPDF.paciente}", :size => 12, :align => :justify, :inline_format => true
+      pdf.text "Paciente: #{pedidoPDF.paciente}", :size => 10, :align => :justify, :inline_format => true
       # Move mais 30 PDF points para baixo o cursor
       pdf.move_down 15
       # Adiciona o nome com 12 PDF points, justify e com o formato inline (Observe que o <b></b> funciona para deixar em negrito)
       #pdf.text "Médico: <b>#{usuario.name} - CRM #{usuario.crm}</b>", :size => 10, :align => :justify, :inline_format => true
       #pdf.move_down 30
       for items in pedidoPDF.items do
-        pdf.text "#{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 12, :align => :left       
+        pdf.text "#{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
         pdf.move_down 10
         if items.veiculo 
-          pdf.text " #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{items.unidade.unidade}"
+          pdf.text " #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8, :align => :left               
           pdf.move_down 10
+          imprime_linha = true
         end        
-        pdf.text " #{items.posologia}"
-        pdf.move_down 20
+        pdf.text " #{items.posologia}", :size => 8, :align => :left               
+
+        if imprime_linha
+          pdf.move_down 5
+          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          pdf.move_down 20
+          imprime_linha = false
+        else
+          pdf.move_down 10
+        end
+
+
       end
       pdf.move_down 20
       for manipulados in pedidoPDF.manipulados do
-        pdf.text "#{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 12, :align => :left               
+        pdf.text "#{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
         pdf.move_down 10
         if manipulados.veiculo 
-          pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}"
+          pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8, :align => :left               
           pdf.move_down 10
+          imprime_linha = true
         end
-        pdf.text " #{manipulados.posologia}"
+        pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
-        pdf.move_down 10
+
         for ingredientes in manipulados.formula.ingredientes
-          pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 12, :align => :left               
+          pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
+          pdf.move_down 10
+        end       
+
+        if imprime_linha
+          pdf.move_down 5
+          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          pdf.move_down 20
+          imprime_linha = false
+        else
           pdf.move_down 10
         end
-        pdf.move_down 20
       end
 
       # Muda de font para Helvetica

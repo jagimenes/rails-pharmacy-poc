@@ -24,8 +24,8 @@
 	<%= f.label :unidade_veiculo_id%>
 	<%= f.select :unidade_veiculo_id,
 	     @unidades.map{ |c| [c.unidade, c.id] },
-	     {}, 
-	     { :class => 'form-control', :label => "Teste"}
+	     {:include_blank => true}, 
+	     { :class => 'form-control'}
 	     %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
