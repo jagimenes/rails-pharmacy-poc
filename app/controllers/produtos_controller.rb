@@ -1,5 +1,5 @@
 class ProdutosController < ApplicationController
-  before_action :set_produto, only: [:show, :edit, :update, :destroy]
+  before_action :set_produto, only: [:show, :edit, :update, :destroy, :update_produtos]
 
 
 
@@ -22,7 +22,6 @@ class ProdutosController < ApplicationController
   # GET /produtos/1/edit
   def edit
   end
-
 
   # POST /produtos
   # POST /produtos.json

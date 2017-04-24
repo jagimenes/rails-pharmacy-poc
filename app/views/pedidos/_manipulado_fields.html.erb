@@ -19,3 +19,34 @@
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
+
+<script>
+	$(".grupoprod").on("change", function() {
+  		var produtoNome = this.id.replace("especialidade_id", "formula_id")
+$.ajax({
+             url: "<%= update_formulas_path %>", // this will be routed
+             type: 'GET',
+             data: {
+               especialidade_id: $("#" + this.id + " option:selected").val()
+             },
+             async: true,
+             dataType: "JSON",
+             error: function(XMLHttpRequest, errorTextStatus, error){
+                        alert("Failed: "+error);
+                    },
+             success: function(data){
+                // here we iterate the json result
+                $("#" + produtoNome).empty();
+                $("#" + produtoNome).append(new Option(" ", " "));
+                for(var i in data)
+                {
+                  var id = data[i].id;
+                  var nome = data[i].nome;
+                  $("#" + produtoNome).append(new Option(nome, id));
+                }
+             }
+           });
+
+
+	});
+</script>
