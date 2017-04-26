@@ -1,0 +1,31 @@
+<div class="nested-fields well well-compact form-inline">
+	<h4>Fórmula: </h4>
+	<%=  f.input :id, :as => :hidden %>
+  <%= f.association :especialidade, 
+		label_method: :nome, 
+		:label => "Grupo", 
+		:input_html => {class: "grupoprod"},
+		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,) 	%>
+	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect"},
+		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id)   %>	
+	<%=  f.input :quantidade %>
+	<%=  f.input :posologia %>
+	<%= f.association :veiculo, 
+		label_method: :nome, 
+		:label => "Veiculo", 
+		:input_html => {class: "veicSelect"},
+		collection: Veiculo.all 
+	%>
+	<%=  f.input :quantidade_veiculo %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+<br>
+<br><br>
+
+<div id="ingredientes">
+  <h4>Ingredientes:</h4>
+  <%=  f.input :observacoes, :label => false, :disabled => true %>
+</div>
+
+
+
+</div>

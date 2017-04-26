@@ -1,0 +1,32 @@
+<div class="nested-fields well well-compact form-inline">
+	<h4>Produto: </h4>
+	<%=  f.input :id, :as => :hidden %>
+	<%= f.association :especialidade, 
+		label_method: :nome, 
+		:label => "Grupo", 
+		:input_html => {class: "grupoprod", :style=> 'width: 20px'},
+		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,)	%>	
+	<%= f.association :produto, 
+		label_method: :descricao, 
+		:label => "Produto", 
+		:input_html => {class: "prodSelect"},
+		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id) 
+	%>
+	<%=  f.input :quantidade %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+	<%=  f.input :posologia %>
+	<%= f.association :veiculo, 
+		label_method: :nome, 
+		:label => "Veiculo", 
+		:input_html => {class: "veicSelect"},
+		collection: Veiculo.all 
+	%>
+	<%=  f.input :quantidade_veiculo %>
+	<%= f.label :unidade_veiculo_id%>
+	<%= f.select :unidade_veiculo_id,
+	     @unidades.map{ |c| [c.unidade, c.id] },
+	     {:include_blank => true}, 
+	     { :class => 'form-control'}
+	     %>
+    
+</div>

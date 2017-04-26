@@ -1,11 +1,11 @@
 <div class="nested-fields well well-compact form-inline">
 	<%=  f.input :id, :as => :hidden %>
-	<%= f.association :especialidade, 
+  <%= f.association :especialidade, 
 		label_method: :nome, 
 		:label => "Grupo", 
 		:input_html => {class: "grupoprod"},
 		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,) 	%>
-	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {},
+	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect"},
 		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id)   %>	
 	<%=  f.input :quantidade %>
 	<%=  f.input :posologia %>
@@ -18,6 +18,16 @@
 	<%=  f.input :quantidade_veiculo %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
+<br>
+<br><br>
+
+<div id="ingredientes">
+  <h4>Ingredientes:</h4>
+  <%=  f.input :observacoes, :label => false, :disabled => true %>
+</div>
+
+
+
 </div>
 
 <script>
@@ -49,4 +59,68 @@ $.ajax({
 
 
 	});
+
+
+
+  $(".formSelect").on("change", function() {
+      var formulaNome = this.id;
+      var formula     = $("#" + this.id + " option:selected").val();
+      var objObservacoes = this.id.replace("formula_id", "observacoes");
+      var divPai = $( this.id ).parent().id;
+      var htmlAppend = "";
+$.ajax({
+             url: "<%= update_ingredientes_path %>", // this will be routed
+             type: 'GET',
+             data: {
+               formula_id: $("#" + this.id + " option:selected").val()
+             },
+             async: true,
+             dataType: "JSON",
+             error: function(XMLHttpRequest, errorTextStatus, error){
+                        alert("Failed: "+error);
+                    },
+             success: function(data){
+                // here we iterate the json result
+                htmlAppend += " <div id='" + objObservacoes + "' class='" + objObservacoes + "' name='" + objObservacoes + "' >"; 
+                htmlAppend += "<table>"
+                for(var i in data)
+                  {
+                    var produto_id = data[i].produto_id;
+                    var produto_nome = data[i].produto_descricao;
+                    var unidade_unidade = data[i].unidade.descricao;
+                    var unidade_id = data[i].unidade.id;
+                    var quantidade = data[i].quantidade;
+                    htmlAppend += "<th><tr> <td>Produto</td> <td></td> <td></td> <td>Quantidade</td> <td></td> <td>Unidade</td> </tr></th>"
+                    htmlAppend += "<tr>";
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='text' name='nomeproduto[]' value='" + produto_nome + "' >";
+                    htmlAppend += "</td>";
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='hidden' name='idproduto[]' value='" + produto_id + "' readonly>";
+                    htmlAppend += "</td>";
+
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='hidden' name='idFormula[]' value='" + formula + "' readonly>";
+                    htmlAppend += "</td>";
+
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='number' name='quantidadeproduto[]' value='" + quantidade + "' >";
+                    htmlAppend += "</td>";
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='hidden' name='idunidade[]' value='" + unidade_id + "' readonly>";
+                    htmlAppend += "</td>";
+                    htmlAppend += "<td>";
+                    htmlAppend += "<input type='text' name='unidade_unidade[]' value='" + unidade_unidade + "' readonly>";
+                    htmlAppend += "</td>";                    
+                    htmlAppend += "</tr>";
+                  }                  
+                htmlAppend += "</table>";
+                htmlAppend += "</div>";
+                $("#" + objObservacoes).replaceWith(htmlAppend);
+             }
+           });
+
+
+  });
+
 </script>

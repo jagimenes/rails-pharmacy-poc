@@ -10,17 +10,24 @@ class PedidosController < ApplicationController
   # GET /pedidos/1
   # GET /pedidos/1.json
   def show
+    @unidades = Unidade.all
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all
   end
 
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
     @unidades = Unidade.all
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all
   end
 
   # GET /pedidos/1/edit
   def edit
     @unidades = Unidade.all
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all
   end
 
 
@@ -34,6 +41,8 @@ class PedidosController < ApplicationController
   # POST /pedidos
   # POST /pedidos.json
   def create
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all    
     @unidades = Unidade.all
     @pedido = Pedido.new(pedido_params)
     puts params.class.name
@@ -45,6 +54,25 @@ class PedidosController < ApplicationController
             puts "QUANTIDADE MAIOR"
         end
       end
+
+      #Adiciona os ingredientes dos produtos
+    produtos_id  = params[:idproduto]
+    unidades_id  = params[:idunidade]
+    quantidades  = params[:quantidadeproduto]
+    formulaParam = params[:idFormula]
+
+      produtos_id.each_with_index do |produto, index|
+        ponto = Ponto.new :produto_id => produtos_id[index], :unidade_id => unidades_id[index], :quantidade => quantidades[index]
+        puts "Ponto: " + ponto.to_s
+        for manipulados in @pedido.manipulados
+            puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
+            if manipulados.formula_id = formulaParam[index]
+                puts "Achou manipulado"
+                manipulados.pontos.push(ponto)
+            end
+        end
+      end
+
 
       if @pedido.save
         format.html { redirect_to pedidos_url, notice: 'Receita adicionada com sucesso.' }
@@ -62,6 +90,8 @@ class PedidosController < ApplicationController
     @unidades = Unidade.all
     @especialidades = Especialidade.all
     @dataProdutos = Produto.all
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all    
     respond_to do |format|
       if @pedido.update(pedido_params)
         format.html { redirect_to pedidos_url, notice: 'Receita atualizada com sucesso.' }
@@ -78,6 +108,8 @@ class PedidosController < ApplicationController
   def destroy
     @pedido.destroy
     @unidades = Unidade.all
+    @unidadesponto = Unidade.all
+    @produtosponto = Produto.all
     respond_to do |format|
       format.html { redirect_to pedidos_url, notice: 'Receita excluida com sucesso.' }
       format.json { head :no_content }
@@ -92,6 +124,6 @@ class PedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pedido_params
-      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id ] )
+      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id, pontos_attributes: [:id, :_destroy, :produto_id, :quantidade, :unidade_id ] ] )
     end
 end

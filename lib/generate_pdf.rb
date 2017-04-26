@@ -15,7 +15,8 @@ module GeneratePdf
     pedidoPDF = Pedido.find(id_pedido)
     imprime_linha = false
     contador = 1
-    contador_ingredientes = 1
+    imprime_contador = true
+    #contador_ingredientes = 1
     Prawn::Document.new(PDF_OPTIONS) do |pdf|
       # Define a cor do traçado
       pdf.fill_color "666666"
@@ -31,7 +32,7 @@ module GeneratePdf
       end
       # Move 80 PDF points para baixo o cursor
       pdf.move_down 50
-      #pdf.text "Receita Médica", :size => 16, :style => :bold, :align => :left
+      pdf.text "Receita Médica", :size => 16, :style => :bold, :align => :left
       #pdf.move_down 35
       # Escreve o texto do contrato com o tamanho de 14 PDF points, com o alinhamento justify
       pdf.text "Paciente: #{pedidoPDF.paciente}", :size => 10, :align => :justify, :inline_format => true
@@ -46,53 +47,73 @@ module GeneratePdf
       #pdf.move_down 30
       contador = 1
       for items in pedidoPDF.items do
-        pdf.text contador.to_s + " - #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
-        pdf.move_down 10
+        if imprime_contador
+          pdf.text contador.to_s + " - #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
+          imprime_contador = false
+          contador = contador + 1
+        else
+          pdf.text "#{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
+        end
+        pdf.move_down 5
         if items.veiculo 
           pdf.text " #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8, :align => :left               
-          pdf.move_down 10
+          pdf.move_down 5
           imprime_linha = true
         end        
         pdf.text " #{items.posologia}", :size => 8, :align => :left               
         if imprime_linha
           pdf.move_down 5
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
-          pdf.move_down 20
+          imprime_contador = true
+          pdf.move_down 10
           imprime_linha = false
         else
-          pdf.move_down 10
+          pdf.move_down 5
         end
-        contador = contador + 1
       end
       #pdf.move_down 20
       contador = 1
       for manipulados in pedidoPDF.manipulados do
-        pdf.text contador.to_s + " - #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
-        pdf.move_down 10
+        if imprime_contador
+          pdf.text contador.to_s + " - #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
+          imprime_contador = false
+          contador = contador + 1
+        else
+          pdf.text "#{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
+        end  
+        pdf.move_down 5
         if manipulados.veiculo 
           pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8, :align => :left               
-          pdf.move_down 10
+          pdf.move_down 5
           imprime_linha = true
         end
         pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
-        contador_ingredientes = 1
-        for ingredientes in manipulados.formula.ingredientes
-          pdf.text contador_ingredientes.to_s + " - #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
-          pdf.move_down 10
-          contador_ingredientes = contador_ingredientes + 1
-        end       
+        #contador_ingredientes = 1
+        if manipulados.pontos
+          for ingredientes in manipulados.pontos
+            pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
+            pdf.move_down 5
+            #contador_ingredientes = contador_ingredientes + 1
+          end       
+        else
+          for ingredientes in manipulados.ingredientes
+            pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
+            pdf.move_down 5
+            #contador_ingredientes = contador_ingredientes + 1
+          end                 
+        end
 
         if imprime_linha
           pdf.move_down 5
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
-          pdf.move_down 20
+          imprime_contador = true
+          pdf.move_down 10
           imprime_linha = false
         else
-          pdf.move_down 10
+          pdf.move_down 5
         end
-        contador = contador + 1
       end
 
       # Muda de font para Helvetica

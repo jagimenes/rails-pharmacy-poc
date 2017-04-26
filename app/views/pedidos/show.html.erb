@@ -1,9 +1,34 @@
-<p id="notice"><%= notice %></p>
+ <%= simple_form_for(@pedido) do |f| %>
+  <%= f.error_notification %>
+  <h3>Visualizar Receita</h3>
+<br><br><br>
+  <div class="form-inputs">
+    <%= f.input :paciente %>
+  </div>
+<br>
 
-<p>
-  <strong>Paciente:</strong>
-  <%= @pedido.paciente %>
-</p>
+    <div class="produtos">
+		<fieldset id='items'>
+			<ol>
+				<%= f.fields_for :items do |item| %>
+					<%= render partial: "item_fields2", locals: {f: item} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>
 
-<%= link_to 'Editar', edit_pedido_path(@pedido) %> |
-<%= link_to 'Voltar', pedidos_path %>
+   <div class="manipulados">
+		<fieldset id='manipulados'>
+			<ol>
+				<%= f.fields_for :manipulados do |manipulado| %>
+					<%= render partial: "manipulado_fields2", locals: {f: manipulado} %>
+				<% end %>
+			</ol>
+		</fieldset>
+    </div>    
+    <br><br><br><br>
+  <div class="form-actions">
+    <%= link_to 'Voltar', pedidos_path, class: "btn btn-default btn-xs" %>
+  </div>
+<% end %>
+

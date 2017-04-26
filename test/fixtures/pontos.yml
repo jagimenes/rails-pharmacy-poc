@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  manipulado: one
+  produto: one
+  unidade: one
+  quantidade: 1.5
+
+two:
+  manipulado: two
+  produto: two
+  unidade: two
+  quantidade: 1.5

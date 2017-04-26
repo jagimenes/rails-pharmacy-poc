@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413004820) do
+ActiveRecord::Schema.define(version: 20170426025441) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20170413004820) do
     t.integer  "veiculo_id"
     t.integer  "unidade_id"
     t.float    "quantidade_veiculo"
+    t.string   "observacoes"
     t.index ["especialidade_id"], name: "index_manipulados_on_especialidade_id"
     t.index ["formula_id"], name: "index_manipulados_on_formula_id"
     t.index ["pedido_id"], name: "index_manipulados_on_pedido_id"
@@ -119,6 +120,18 @@ ActiveRecord::Schema.define(version: 20170413004820) do
     t.datetime "updated_at",       null: false
     t.index ["especialidade_id"], name: "index_permissaos_on_especialidade_id"
     t.index ["user_id"], name: "index_permissaos_on_user_id"
+  end
+
+  create_table "pontos", force: :cascade do |t|
+    t.integer  "produto_id"
+    t.integer  "unidade_id"
+    t.float    "quantidade"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "manipulado_id"
+    t.index ["manipulado_id"], name: "index_pontos_on_manipulado_id"
+    t.index ["produto_id"], name: "index_pontos_on_produto_id"
+    t.index ["unidade_id"], name: "index_pontos_on_unidade_id"
   end
 
   create_table "produtos", force: :cascade do |t|
