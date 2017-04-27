@@ -1,0 +1,7 @@
+I"f(function() {
+  jQuery(function() {
+    return $("#veiculos").dataTable();
+  });
+
+}).call(this);
+:ET
