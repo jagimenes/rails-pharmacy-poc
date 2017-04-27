@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= f.input :nome %>
     <%= f.association :especialidade, label_method: :nome, :label => "Especialidade", :input_html => {} %>
+    <%= f.association :veiculo, label_method: :nome, :label => "Veículo Padrão", :input_html => {} %>
     <%= f.input :observacoes %>
   </div>
 

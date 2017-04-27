@@ -3,6 +3,7 @@ class Formula < ApplicationRecord
 	validates_presence_of :nome
 	has_one :ingrediente
 	belongs_to :especialidade
+	belongs_to :veiculo
 	accepts_nested_attributes_for :ingredientes, :reject_if => :all_blank, :allow_destroy => true
 
 end

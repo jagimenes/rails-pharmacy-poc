@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   resources :update_ingredientes do
    get 'update_ingredientes'  , as: 'update_ingredientes'
   end  
+  resources :update_veiculo_formula do
+   get 'update_veiculo_formula'  , as: 'update_veiculo_formula'
+  end    
   resources :pedidos do 
       get 'export'
     end

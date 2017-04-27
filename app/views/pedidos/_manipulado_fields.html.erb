@@ -68,6 +68,8 @@ $.ajax({
       var objObservacoes = this.id.replace("formula_id", "observacoes");
       var divPai = $( this.id ).parent().id;
       var htmlAppend = "";
+      var veiculoNome = this.id.replace("formula_id", "veiculo_id")
+
 $.ajax({
              url: "<%= update_ingredientes_path %>", // this will be routed
              type: 'GET',
@@ -119,6 +121,46 @@ $.ajax({
                 $("#" + objObservacoes).replaceWith(htmlAppend);
              }
            });
+
+
+$.ajax({
+             url: "<%= update_veiculo_formula_index_path %>", // this will be routed
+             type: 'GET',
+             data: {
+               formula_id: $("#" + this.id + " option:selected").val()
+             },
+             async: true,
+             dataType: "JSON",
+             error: function(XMLHttpRequest, errorTextStatus, error){
+                        alert("Failed: "+error);
+                    },
+             success: function(data){
+                // here we iterate the json result
+                $("#" + veiculoNome).empty();
+                if (data.length > 1)
+                {
+                    $("#" + veiculoNome).append(new Option(" ", " "));
+                    for(var i in data)
+                    {
+                      var id = data[i].id;
+                      var nome = data[i].nome;
+                      $("#" + veiculoNome).append(new Option(nome, id));
+                    }
+                  }
+                  else if (data.length == 1) {
+                      var id = data[0].id;
+                      var nome = data[0].nome;
+                      $("#" + veiculoNome).append(new Option(nome, id));
+                      $("#" + veiculoNome).attr('readonly', 'true');
+                  }
+                  else
+                  {
+                    $("#" + veiculoNome).append(new Option(" ", " "));
+                    $("#" + veiculoNome).attr('readonly', 'true');
+                  }
+               }
+           });
+
 
 
   });

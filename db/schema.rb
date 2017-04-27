@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426025441) do
+ActiveRecord::Schema.define(version: 20170427002415) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 20170426025441) do
     t.string   "observacoes"
     t.integer  "user_id"
     t.integer  "especialidade_id"
+    t.integer  "veiculo_id"
     t.index ["especialidade_id"], name: "index_formulas_on_especialidade_id"
     t.index ["user_id"], name: "index_formulas_on_user_id"
+    t.index ["veiculo_id"], name: "index_formulas_on_veiculo_id"
   end
 
   create_table "grupos", force: :cascade do |t|
