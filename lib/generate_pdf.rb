@@ -65,7 +65,7 @@ module GeneratePdf
           pdf.move_down 3
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 5
+          pdf.move_down 3
           imprime_linha = false
         else
           pdf.move_down 3
@@ -87,10 +87,7 @@ module GeneratePdf
           pdf.move_down 3
           imprime_linha = true
         end
-        pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
-        #pdf.move_down 10
-        #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
-        #contador_ingredientes = 1
+
         if manipulados.pontos
           for ingredientes in manipulados.pontos
             pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
@@ -104,12 +101,16 @@ module GeneratePdf
             #contador_ingredientes = contador_ingredientes + 1
           end                 
         end
+        pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
+        #pdf.move_down 10
+        #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
+        #contador_ingredientes = 1
 
         if imprime_linha
           pdf.move_down 3
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 5
+          pdf.move_down 3
           imprime_linha = false
         else
           pdf.move_down 3
