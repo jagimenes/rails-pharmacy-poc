@@ -82,11 +82,6 @@ module GeneratePdf
           pdf.text "#{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
         end  
         pdf.move_down 3
-        if manipulados.veiculo 
-          pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8, :align => :left               
-          pdf.move_down 3
-          imprime_linha = true
-        end
 
         if manipulados.pontos
           for ingredientes in manipulados.pontos
@@ -101,6 +96,13 @@ module GeneratePdf
             #contador_ingredientes = contador_ingredientes + 1
           end                 
         end
+
+        if manipulados.veiculo 
+          pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8, :align => :left               
+          pdf.move_down 3
+          imprime_linha = true
+        end
+
         pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
