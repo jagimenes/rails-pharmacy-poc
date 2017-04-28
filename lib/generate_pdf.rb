@@ -48,19 +48,19 @@ module GeneratePdf
       contador = 1
       for items in pedidoPDF.items do
         if imprime_contador
-          pdf.text contador.to_s + " - #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
+          pdf.text contador.to_s + " - #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8#, :align => :left       
           imprime_contador = false
           contador = contador + 1
         else
-          pdf.text "#{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8, :align => :left       
+          pdf.text "   #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8#, :align => :left       
         end
         pdf.move_down 3
         if items.veiculo 
-          pdf.text " #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8, :align => :left               
+          pdf.text "   #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8#, :align => :left               
           pdf.move_down 3
           imprime_linha = true
         end        
-        pdf.text " #{items.posologia}", :size => 8, :align => :left               
+        pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
         if imprime_linha
           pdf.move_down 3
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
@@ -75,35 +75,35 @@ module GeneratePdf
       #contador = 1
       for manipulados in pedidoPDF.manipulados do
         if imprime_contador
-          pdf.text contador.to_s + " - #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
+          pdf.text contador.to_s + " - #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
           imprime_contador = false
           contador = contador + 1
         else
-          pdf.text "#{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8, :align => :left               
+          pdf.text "   #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
         end  
         pdf.move_down 3
 
         if manipulados.pontos
           for ingredientes in manipulados.pontos
-            pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
+            pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
             pdf.move_down 3
             #contador_ingredientes = contador_ingredientes + 1
           end       
         else
           for ingredientes in manipulados.ingredientes
-            pdf.text "#{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8, :align => :left               
+            pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
             pdf.move_down 3
             #contador_ingredientes = contador_ingredientes + 1
           end                 
         end
 
         if manipulados.veiculo 
-          pdf.text " #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8, :align => :left               
+          pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
           pdf.move_down 3
           imprime_linha = true
         end
 
-        pdf.text " #{manipulados.posologia}", :size => 8, :align => :left               
+        pdf.text "#{manipulados.posologia}", :size => 8#, :align => :left               
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
         #contador_ingredientes = 1
