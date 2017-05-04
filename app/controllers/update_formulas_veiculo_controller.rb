@@ -3,7 +3,7 @@ class UpdateFormulasVeiculoController < ApplicationController
 
   def index
     @veiculos = Diluente.joins(:veiculo).where('veiculo.produto_id = ?', params[:formula_id])
-    respond_with(@veiculos)
+    respond_with(@veiculos.sort_by{|e| e[:nome]})
   end
 
 

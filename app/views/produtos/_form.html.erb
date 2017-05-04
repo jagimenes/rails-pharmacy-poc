@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= f.input :descricao %>
     <%= f.input :observacoes %>
+    <%= f.input :sinonimo, :label => "Sinônimo" %>
     <%= f.input :maximo %>
     <%= f.association :unidade, label_method: :unidade, :label => "Em", :input_html => {} %>
   </div>

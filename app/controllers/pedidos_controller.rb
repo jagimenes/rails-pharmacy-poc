@@ -61,15 +61,17 @@ class PedidosController < ApplicationController
     quantidades  = params[:quantidadeproduto]
     formulaParam = params[:idFormula]
 
-      produtos_id.each_with_index do |produto, index|
-        ponto = Ponto.new :produto_id => produtos_id[index], :unidade_id => unidades_id[index], :quantidade => quantidades[index]
-        puts "Ponto: " + ponto.to_s
-        for manipulados in @pedido.manipulados
-            puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
-            if manipulados.formula_id = formulaParam[index]
-                puts "Achou manipulado"
-                manipulados.pontos.push(ponto)
-            end
+      if produtos_id
+        produtos_id.each_with_index do |produto, index|
+          ponto = Ponto.new :produto_id => produtos_id[index], :unidade_id => unidades_id[index], :quantidade => quantidades[index]
+          puts "Ponto: " + ponto.to_s
+          for manipulados in @pedido.manipulados
+              puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
+              if manipulados.formula_id = formulaParam[index]
+                  puts "Achou manipulado"
+                  manipulados.pontos.push(ponto)
+              end
+          end
         end
       end
 
@@ -124,6 +126,6 @@ class PedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pedido_params
-      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id, pontos_attributes: [:id, :_destroy, :produto_id, :quantidade, :unidade_id ] ] )
+      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:imprimir, :id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id, pontos_attributes: [:id, :_destroy, :produto_id, :quantidade, :unidade_id ] ] )
     end
 end

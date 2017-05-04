@@ -54,21 +54,21 @@ module GeneratePdf
         else
           pdf.text "   #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8#, :align => :left       
         end
-        pdf.move_down 3
+        pdf.move_down 1
         if items.veiculo 
           pdf.text "   #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8#, :align => :left               
-          pdf.move_down 3
+          pdf.move_down 1
           imprime_linha = true
         end        
         pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
         if imprime_linha
-          pdf.move_down 3
+          pdf.move_down 1
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 3
+          pdf.move_down 1
           imprime_linha = false
         else
-          pdf.move_down 3
+          pdf.move_down 1
         end
       end
       #pdf.move_down 20
@@ -81,25 +81,31 @@ module GeneratePdf
         else
           pdf.text "   #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
         end  
-        pdf.move_down 3
+        pdf.move_down 1
 
-        if manipulados.pontos
-          for ingredientes in manipulados.pontos
-            pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
-            pdf.move_down 3
-            #contador_ingredientes = contador_ingredientes + 1
-          end       
-        else
-          for ingredientes in manipulados.ingredientes
-            pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
-            pdf.move_down 3
-            #contador_ingredientes = contador_ingredientes + 1
-          end                 
+        if manipulados.imprimir
+          if manipulados.pontos
+            for ingredientes in manipulados.pontos
+              pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
+              pdf.move_down 1
+              #contador_ingredientes = contador_ingredientes + 1
+            end       
+          else
+            for ingredientes in manipulados.ingredientes
+              pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
+              pdf.move_down 1
+              #contador_ingredientes = contador_ingredientes + 1
+            end                 
+          end
         end
 
         if manipulados.veiculo 
-          pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
-          pdf.move_down 3
+          if manipulados.unidade_id
+            pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
+          else
+            pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}", :size => 8#, :align => :left               
+          end
+          pdf.move_down 1
           imprime_linha = true
         end
 
@@ -109,13 +115,13 @@ module GeneratePdf
         #contador_ingredientes = 1
 
         if imprime_linha
-          pdf.move_down 3
+          pdf.move_down 1
           pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 3
+          pdf.move_down 1
           imprime_linha = false
         else
-          pdf.move_down 3
+          pdf.move_down 1
         end
       end
 

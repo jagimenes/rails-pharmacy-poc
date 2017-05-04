@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428173229) do
+ActiveRecord::Schema.define(version: 20170504003146) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170428173229) do
     t.integer  "unidade_id"
     t.float    "quantidade_veiculo"
     t.string   "observacoes"
+    t.boolean  "imprimir"
     t.index ["especialidade_id"], name: "index_manipulados_on_especialidade_id"
     t.index ["formula_id"], name: "index_manipulados_on_formula_id"
     t.index ["pedido_id"], name: "index_manipulados_on_pedido_id"
@@ -143,6 +144,7 @@ ActiveRecord::Schema.define(version: 20170428173229) do
     t.datetime "updated_at",  null: false
     t.float    "maximo"
     t.integer  "unidade_id"
+    t.string   "sinonimo"
     t.index ["unidade_id"], name: "index_produtos_on_unidade_id"
   end
 

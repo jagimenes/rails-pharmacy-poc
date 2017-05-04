@@ -6,7 +6,7 @@ class UpdateVeiculoFormulaController < ApplicationController
     if @veiculos.length == 0
     	@veiculos = Veiculo.all
     end
-    respond_with(@veiculos)
+    respond_with(@veiculos.sort_by{|e| e[:nome]})
   end
 
 

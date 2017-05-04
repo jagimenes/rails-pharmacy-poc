@@ -17,6 +17,7 @@
 	%>
 	<%=  f.input :quantidade_veiculo %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+  Imprime ingredientes ? <%= f.select :imprimir, [['Sim', true], ['Não', false]], class: "form-control" %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 <br>
 <br><br>
