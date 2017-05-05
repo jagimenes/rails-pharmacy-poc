@@ -97,16 +97,16 @@ module GeneratePdf
               #contador_ingredientes = contador_ingredientes + 1
             end                 
           end
-        end
 
-        if manipulados.veiculo 
-          if manipulados.unidade_id
-            pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
-          else
-            pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}", :size => 8#, :align => :left               
+          if manipulados.veiculo 
+            if manipulados.unidade_id
+              pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
+            else
+              pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}", :size => 8#, :align => :left               
+            end
+            pdf.move_down 1
+            imprime_linha = true
           end
-          pdf.move_down 1
-          imprime_linha = true
         end
 
         pdf.text "#{manipulados.posologia}", :size => 8#, :align => :left               

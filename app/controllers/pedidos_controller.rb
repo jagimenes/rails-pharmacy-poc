@@ -4,7 +4,11 @@ class PedidosController < ApplicationController
   # GET /pedidos
   # GET /pedidos.json
   def index
-    @pedidos = Pedido.where(user_id: current_user.id)
+    if current_user.role == "admin"
+      @pedidos = Pedido.all
+    else
+      @pedidos = Pedido.where(user_id: current_user.id)
+    end
   end
 
   # GET /pedidos/1
