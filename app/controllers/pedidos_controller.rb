@@ -55,11 +55,7 @@ class PedidosController < ApplicationController
     puts pedido_params.inspect
     respond_to do |format|
     @pedido.user_id = current_user.id
-      for items in @pedido.items
-        if items.quantidade > items.produto.maximo
-            puts "QUANTIDADE MAIOR"
-        end
-      end
+
 
       #Adiciona os ingredientes dos produtos
     produtos_id  = params[:idproduto]

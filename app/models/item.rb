@@ -10,6 +10,20 @@ class Item < ApplicationRecord
   
 protected
   def VerificaUnidadeMedida
+
+    if self.produto.nil?
+        verifica = false
+        errors.add(:produto, 'Produto inválido')
+        return verifica
+    end
+
+    if self.quantidade.nil?
+        verifica = false
+        errors.add(:quantidade, 'Quantidade inválida')
+        return verifica
+    end
+
+
     quantidade_item	        = self.quantidade
     quantidade_produto      = self.produto.maximo
     unidade_item            = self.unidade.unidade
@@ -26,7 +40,6 @@ protected
       	errors.add(:quantidade, 'Quantidade inválida')
       end
     end
-    
     verifica
  end
 

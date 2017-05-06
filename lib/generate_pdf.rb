@@ -60,6 +60,7 @@ module GeneratePdf
           pdf.move_down 1
           imprime_linha = true
         end        
+        pdf.move_down 2
         pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
         if imprime_linha
           pdf.move_down 1
@@ -108,7 +109,7 @@ module GeneratePdf
             imprime_linha = true
           end
         end
-
+        pdf.move_down 2
         pdf.text "#{manipulados.posologia}", :size => 8#, :align => :left               
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           
