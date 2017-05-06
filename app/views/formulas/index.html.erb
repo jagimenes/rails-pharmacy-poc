@@ -14,8 +14,15 @@
       <tr>
         <td><%= formula.nome %></td>
         <td><%= formula.created_at.strftime("%d/%m/%y") %></td>
+        <% if current_user.role == "admin" %>
         <td><%= link_to 'Editar', edit_formula_path(formula), class: "btn btn-primary btn-xs" %>
         <%= link_to 'Excluir', formula, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
+        <% elsif current_user.id == formula.user_id %>
+        <td><%= link_to 'Editar', edit_formula_path(formula), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Excluir', formula, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
+        <% elsif current_user.id != formula.user_id %>
+        <td><%= link_to 'Visualizar', formula_path(formula), class: "btn btn-primary btn-xs" %>
+        <% end %>
         </td>
       </tr>
     <% end %>

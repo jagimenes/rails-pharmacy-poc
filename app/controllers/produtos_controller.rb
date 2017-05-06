@@ -7,6 +7,7 @@ class ProdutosController < ApplicationController
   # GET /produtos.json
   def index
     @produtos = Produto.all
+    @produtos = @produtos.sort_by{|e| e[:descricao]}
   end
 
   # GET /produtos/1

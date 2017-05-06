@@ -1,0 +1,7 @@
+I"a(function() {
+  jQuery(function() {});
+
+  $("#especialidades").dataTable();
+
+}).call(this);
+:ET

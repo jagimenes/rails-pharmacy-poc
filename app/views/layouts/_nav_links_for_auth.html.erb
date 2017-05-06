@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
-  <li><%= link_to current_user.name, edit_user_registration_path %></li>
-  <li><%= link_to 'Fazer Logoff', destroy_user_session_path, :method=>'delete' %></li>
+  <li><%= link_to current_user.name, edit_user_registration_path, {:style=>'color:#FFF;'} %></li>
+  <li><%= link_to 'Fazer Logoff', destroy_user_session_path, {:style=>'color:#FFF;', :method=>'delete'} %></li>
 <% else %>
-  <li><%= link_to 'Login', new_user_session_path %></li>
+  <li><%= link_to 'Login', new_user_session_path, {:style=>'color:#FFF;'} %></li>
 <% end %>
 <% if user_signed_in? %>
   <% if current_user.try(:admin?) %>
-    <li><%= link_to 'Usuários', users_path %></li>
+    <li><%= link_to 'Usuários', users_path, {:style=>'color:#FFF;'} %></li>
   <% end %>
 <% end %>

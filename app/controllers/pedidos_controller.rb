@@ -6,8 +6,10 @@ class PedidosController < ApplicationController
   def index
     if current_user.role == "admin"
       @pedidos = Pedido.all
+      @pedidos = @pedidos.sort_by{|e| e[:paciente]}
     else
       @pedidos = Pedido.where(user_id: current_user.id)
+      @pedidos = @pedidos.sort_by{|e| e[:paciente]}
     end
   end
 

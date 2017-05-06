@@ -5,6 +5,7 @@ class VeiculosController < ApplicationController
   # GET /veiculos.json
   def index
     @veiculos = Veiculo.all
+    @veiculos = @veiculos.sort_by{|e| e[:nome]}
   end
 
   # GET /veiculos/1

@@ -5,6 +5,7 @@ class EspecialidadesController < ApplicationController
   # GET /especialidades.json
   def index
     @especialidades = Especialidade.all
+    @especialidades = @especialidades.sort_by{|e| e[:nome]}
   end
 
   # GET /especialidades/1

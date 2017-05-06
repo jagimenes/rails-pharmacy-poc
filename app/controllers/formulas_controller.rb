@@ -4,7 +4,8 @@ class FormulasController < ApplicationController
   # GET /formulas
   # GET /formulas.json
   def index
-    @formulas = Formula.where('user_id = ? OR user_id = 0',  current_user.id)
+    @formulas = Formula.where('user_id = ? OR user_id = 3',  current_user.id)
+    @formulas = @formulas.sort_by{|e| e[:nome]}
   end
 
   # GET /formulas/1

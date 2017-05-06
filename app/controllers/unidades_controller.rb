@@ -5,6 +5,7 @@ class UnidadesController < ApplicationController
   # GET /unidades.json
   def index
     @unidades = Unidade.all
+    @unidades = @unidades.sort_by{|e| e[:descricao]}
   end
 
   # GET /unidades/1
