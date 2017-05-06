@@ -52,17 +52,21 @@ module GeneratePdf
           imprime_contador = false
           contador = contador + 1
         else
-          pdf.text "   #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8#, :align => :left       
+          if items.produto
+            pdf.text "   #{items.produto.descricao} - #{items.quantidade}#{items.unidade.unidade}", :size => 8#, :align => :left       
+            pdf.move_down 1
+          end
         end
-        pdf.move_down 1
-        if items.veiculo 
-          pdf.text "   #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8#, :align => :left               
-          pdf.move_down 1
-          imprime_linha = true
-        end        
-        if items.posologia
-          pdf.move_down 2
-          pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
+        if items.produto
+          if items.veiculo 
+            pdf.text "   #{items.veiculo.nome} qsp #{items.quantidade_veiculo}#{Unidade.find(items.unidade_veiculo_id).unidade}", :size => 8#, :align => :left               
+            pdf.move_down 1
+            imprime_linha = true
+          end        
+          if items.posologia
+            pdf.move_down 2
+            pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
+          end
         end
         if imprime_linha
           pdf.move_down 1
@@ -82,38 +86,41 @@ module GeneratePdf
           imprime_contador = false
           contador = contador + 1
         else
-          pdf.text "   #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
+          if manipulados.formula
+            pdf.move_down 1          
+            pdf.text "   #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
+          end
         end  
-        pdf.move_down 1
-
-        if manipulados.imprimir
-          if manipulados.pontos
-            for ingredientes in manipulados.pontos
-              pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
-              pdf.move_down 1
-              #contador_ingredientes = contador_ingredientes + 1
-            end       
-          else
-            for ingredientes in manipulados.ingredientes
-              pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
-              pdf.move_down 1
-              #contador_ingredientes = contador_ingredientes + 1
-            end                 
-          end
-
-          if manipulados.veiculo 
-            if manipulados.unidade_id
-              pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
+        if manipulados.formula
+          if manipulados.imprimir
+            if manipulados.pontos
+              for ingredientes in manipulados.pontos
+                pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
+                pdf.move_down 1
+                #contador_ingredientes = contador_ingredientes + 1
+              end       
             else
-              pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}", :size => 8#, :align => :left               
+              for ingredientes in manipulados.ingredientes
+                pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
+                pdf.move_down 1
+                #contador_ingredientes = contador_ingredientes + 1
+              end                 
             end
-            pdf.move_down 1
-            imprime_linha = true
+
+            if manipulados.veiculo 
+              if manipulados.unidade_id
+                pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}#{manipulados.unidade.unidade}", :size => 8#, :align => :left               
+              else
+                pdf.text "   #{manipulados.veiculo.nome} qsp #{manipulados.quantidade_veiculo}", :size => 8#, :align => :left               
+              end
+              pdf.move_down 1
+              imprime_linha = true
+            end
           end
-        end
-        if manipulados.posologia
-          pdf.move_down 2
-          pdf.text "#{manipulados.posologia}", :size => 8#, :align => :left               
+          if manipulados.posologia
+            pdf.move_down 2
+            pdf.text "#{manipulados.posologia}", :size => 8#, :align => :left               
+          end
         end
         #pdf.move_down 10
         #pdf.text "OBSERVACOES: #{manipulados.formula.observacoes}", :size => 12, :align => :left                           

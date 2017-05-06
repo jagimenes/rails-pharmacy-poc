@@ -110,6 +110,15 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1
   # DELETE /pedidos/1.json
   def destroy
+    @items = Item.joins(:pedido).where(' pedidos.id = ?', @pedido.id)
+    @items.destroy_all
+
+    @manipulados = Manipulado.joins(:pedido).where(' pedidos.id = ?', @pedido.id)
+    @manipulados.destroy_all
+
+    @pontos = Ponto.joins(:manipulado).where(' manipulados.pedido_id = ?', @pedido.id)
+    @pontos.destroy_all
+
     @pedido.destroy
     @unidades = Unidade.all
     @unidadesponto = Unidade.all

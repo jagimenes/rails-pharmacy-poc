@@ -1,7 +1,47 @@
 <div class="nested-fields well well-compact form-inline">
 	<%=  f.input :id, :as => :hidden %>
-	<%= f.association :produto, label_method: :descricao, :label => "Produto", :input_html => {} %>
+		<%= f.association :especialidade, 
+		label_method: :nome, 
+		:label => "Grupo", 
+		:input_html => {class: "grupoprod"},
+		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,)	%>	
+		<%= f.association :produto, 
+		label_method: :descricao, 
+		:label => "Produto", 
+		:input_html => {class: "prodSelect"},
+		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id) %>
 	<%=  f.input :quantidade %>
 	<%= f.association :unidade, label_method: :unidade, :label => "UN", :input_html => {} %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
+
+<script>
+	$(".grupoprod").on("change", function() {
+  		var produtoNome = this.id.replace("especialidade_id", "produto_id")
+$.ajax({
+             url: "<%= update_produtos_path %>", // this will be routed
+             type: 'GET',
+             data: {
+               especialidade_id: $("#" + this.id + " option:selected").val()
+             },
+             async: true,
+             dataType: "JSON",
+             error: function(XMLHttpRequest, errorTextStatus, error){
+                        alert("Failed: "+error);
+                    },
+             success: function(data){
+                // here we iterate the json result
+                $("#" + produtoNome).empty();
+                $("#" + produtoNome).append(new Option(" ", " "));
+                for(var i in data)
+                {
+                  var id = data[i].id;
+                  var descricao = data[i].descricao;
+                  $("#" + produtoNome).append(new Option(descricao, id));
+                }
+             }
+           });
+
+
+	});
+</script>

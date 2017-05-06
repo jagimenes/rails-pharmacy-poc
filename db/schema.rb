@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504003146) do
+ActiveRecord::Schema.define(version: 20170506145324) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -35,7 +35,11 @@ ActiveRecord::Schema.define(version: 20170504003146) do
     t.integer  "user_id"
     t.integer  "especialidade_id"
     t.integer  "veiculo_id"
+    t.integer  "unidade_id"
+    t.float    "quantidade"
+    t.boolean  "editar"
     t.index ["especialidade_id"], name: "index_formulas_on_especialidade_id"
+    t.index ["unidade_id"], name: "index_formulas_on_unidade_id"
     t.index ["user_id"], name: "index_formulas_on_user_id"
     t.index ["veiculo_id"], name: "index_formulas_on_veiculo_id"
   end
@@ -54,8 +58,10 @@ ActiveRecord::Schema.define(version: 20170504003146) do
     t.integer  "produto_id"
     t.integer  "unidade_id"
     t.float    "quantidade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "especialidade_id"
+    t.index ["especialidade_id"], name: "index_ingredientes_on_especialidade_id"
     t.index ["formula_id"], name: "index_ingredientes_on_formula_id"
     t.index ["produto_id"], name: "index_ingredientes_on_produto_id"
     t.index ["unidade_id"], name: "index_ingredientes_on_unidade_id"

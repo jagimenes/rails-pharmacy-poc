@@ -2,6 +2,7 @@ class Ingrediente < ApplicationRecord
   belongs_to        :formula
   belongs_to        :produto
   belongs_to        :unidade
+  belongs_to        :especialidade
   validate :VerificaUnidadeMedida
   validates_presence_of :produto, :quantidade, :unidade
 
@@ -24,7 +25,7 @@ protected
       end
     end
 
-    verifica
+    verifica 
  end
 
 

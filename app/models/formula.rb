@@ -4,6 +4,7 @@ class Formula < ApplicationRecord
 	has_one :ingrediente
 	belongs_to :especialidade
 	belongs_to :veiculo
+	belongs_to :unidade
 	accepts_nested_attributes_for :ingredientes, :reject_if => :all_blank, :allow_destroy => true
 
 end
