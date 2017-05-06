@@ -11,10 +11,10 @@
 
   <tbody>
     <% @pedidos.each do |pedido| %>
-      <tr>
+      <tr> 
         <td><%= pedido.paciente %></td>
         <td><%= pedido.created_at.strftime("%d/%m/%y") %></td>
-        <td><%= link_to 'Visualizar', pedido_path(pedido), class: "btn btn-primary btn-xs" %>
+        <td><%= link_to 'Editar', edit_pedido_path(pedido), class: "btn btn-primary btn-xs" %>
         <%= link_to 'Excluir', pedido, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
         <%= link_to 'Gerar Receita', pedido_export_path(pedido), target: "_blank", class: "btn btn-primary btn-xs" %></td>
       </tr>

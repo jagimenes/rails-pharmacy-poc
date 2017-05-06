@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :permissaos, inverse_of: :user
+  has_many :pedidos, inverse_of: :user
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
 
