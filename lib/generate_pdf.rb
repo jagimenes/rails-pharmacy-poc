@@ -74,8 +74,6 @@ module GeneratePdf
           imprime_contador = true
           pdf.move_down 1
           imprime_linha = false
-        else
-          pdf.move_down 1
         end
       end
       #pdf.move_down 20
@@ -132,8 +130,6 @@ module GeneratePdf
           imprime_contador = true
           pdf.move_down 1
           imprime_linha = false
-        else
-          pdf.move_down 1
         end
       end
 
