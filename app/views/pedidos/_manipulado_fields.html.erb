@@ -96,6 +96,7 @@ $.ajax({
                     var unidade_unidade = data[i].unidade.unidade;
                     var unidade_id = data[i].unidade.id;
                     var quantidade = data[i].quantidade;
+                    var editar     = data[i].editar;
                     htmlAppend += "<th><tr> <td>Produto</td> <td></td> <td></td> <td>Quantidade</td> <td></td> <td>Unidade</td> </tr></th>"
                     htmlAppend += "<tr>";
                     htmlAppend += "<td>";
@@ -110,7 +111,14 @@ $.ajax({
                     htmlAppend += "</td>";
 
                     htmlAppend += "<td>";
+                    if (editar  != "t")
+                    {
                     htmlAppend += "<input type='number' name='quantidadeproduto[]' value='" + quantidade + "' >";
+                    }
+                    else
+                    {
+                     htmlAppend += "<input type='number' name='quantidadeproduto[]' value='" + quantidade + "' readonly >"; 
+                    }
                     htmlAppend += "</td>";
                     htmlAppend += "<td>";
                     htmlAppend += "<input type='hidden' name='idunidade[]' value='" + unidade_id + "' readonly>";

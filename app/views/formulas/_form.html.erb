@@ -8,6 +8,10 @@
     <%= f.input :quantidade, :label => "Quantidade padrão" %>
     <%= f.association :unidade, label_method: :descricao, :label => "Unidade Padrão", :input_html => {} %>
     <%= f.input :observacoes %>
+    Bloquear edição ? <%= f.select :editar, [['Não', false], ['Sim', true]], class: "form-control" %>
+    <br>
+    <br>
+    <br>
   </div>
 
 

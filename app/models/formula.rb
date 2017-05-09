@@ -3,8 +3,8 @@ class Formula < ApplicationRecord
 	validates_presence_of :nome
 	has_one :ingrediente
 	belongs_to :especialidade
-	belongs_to :veiculo
-	belongs_to :unidade
+	belongs_to :veiculo, optional: true
+	belongs_to :unidade, optional: true
 	accepts_nested_attributes_for :ingredientes, :reject_if => :all_blank, :allow_destroy => true
 
 end
