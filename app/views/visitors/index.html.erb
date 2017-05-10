@@ -30,18 +30,21 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6" id="grafico1">
+         <!--        <div class="col-lg-6" id="grafico1"> -->
                     <% if current_user.role == "admin" %>
                     <%= bar_chart Item.joins(:produto).group(:produto).count, title: "Produtos mais receitados", refresh: 60 %>
                     <% else %>
                     <%= column_chart Pedido.where(' user_id = ?', current_user.id).group_by_day_of_week(:created_at, format: "%a").count, title: "Total de receitas Emitidas", refresh: 60 %>
                     <% end %>
-                </div>
-                <div class="col-lg-6" id="grafico2">
+         <!--        </div> -->
+            </div>
+            <div class="row">
+            <!--     <div class="col-lg-6" id="grafico2"> -->
                     <% if current_user.role == "admin" %>
                     <%= bar_chart Manipulado.joins(:formula).group(:nome).count, title: "Fórmulas mais receitados", refresh: 60 %>                    
                     <% end %>
-                </div>
+            <!--     </div> -->
+            </div>
                 <br><br>
             </div>
             <br>
@@ -51,16 +54,19 @@
             <br>
             <br>            
             <div class="row">
-                <div class="col-lg-6" id="grafico3">
+                <!-- <div class="col-lg-6" id="grafico3"> -->
                     <% if current_user.role == "admin" %>
                     <%= pie_chart Pedido.joins(:user).group(:name).count, title: "Receitas por médico", refresh: 60 %>
                     <% end %>
-                </div>
-                <div class="col-lg-6" id="grafico4">
+                <!-- </div> -->
+            </div>
+            <div class="row">
+                <!-- <div class="col-lg-6" id="grafico4"> -->
                     <% if current_user.role == "admin" %>
                     <%= column_chart Pedido.group_by_day_of_week(:created_at, format: "%a").count, title: "Total de receitas Emitidas", refresh: 60 %>
                     <% end %>
-                </div>
+                <!-- </div>-->
+            </div>
             </div>            
         </div>
     </div>
