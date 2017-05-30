@@ -31,7 +31,7 @@ module GeneratePdf
         pdf.move_down 20
       end
       # Move 80 PDF points para baixo o cursor
-      pdf.move_down 50
+      pdf.move_down 70
       pdf.text "Receita Médica", :size => 16, :style => :bold, :align => :left
       #pdf.move_down 35
       # Escreve o texto do contrato com o tamanho de 14 PDF points, com o alinhamento justify
@@ -72,9 +72,9 @@ module GeneratePdf
         end
         if imprime_linha
           pdf.move_down 1
-          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 1
+          pdf.move_down 2
           imprime_linha = false
         end
       end
@@ -128,9 +128,9 @@ module GeneratePdf
 
         if imprime_linha
           pdf.move_down 1
-          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 1
+          pdf.move_down 2
           imprime_linha = false
         end
       end

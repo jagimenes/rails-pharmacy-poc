@@ -3,8 +3,9 @@
 <h3>Usuário</h3>
 <p>Nome: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
-
-<p>Grupos</p>
+Todos os grupos ? <%= f.select :todos, [['Não', false], ['Sim', true]], class: "form-control" %>
+<br><br><br><br>
+<h4>Grupos</h4>
 
 
     <div class="permissaos">
