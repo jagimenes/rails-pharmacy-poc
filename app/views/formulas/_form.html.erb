@@ -4,7 +4,8 @@
   <div class="form-inputs">
     <%= f.input :nome %>
     <%= f.association :especialidade, label_method: :nome, :label => "Especialidade", :input_html => {} %>
-    <%= f.association :veiculo, label_method: :nome, :label => "Veículo Padrão", :input_html => {} %>
+    <%= f.association :veiculo, label_method: :nome, :label => "Veículo Padrão", :input_html => {},
+        collection: Veiculo.all.sort_by{|e| e[:nome]}  %>
     <%= f.input :quantidade, :label => "Quantidade padrão" %>
     <%= f.association :unidade, label_method: :descricao, :label => "Unidade Padrão", :input_html => {} %>
     <%= f.input :observacoes %>
