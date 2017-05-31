@@ -74,7 +74,7 @@ module GeneratePdf
           pdf.move_down 1
           #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 2
+          pdf.move_down 5
           imprime_linha = false
         end
       end
@@ -130,7 +130,7 @@ module GeneratePdf
           pdf.move_down 1
           #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
-          pdf.move_down 2
+          pdf.move_down 5
           imprime_linha = false
         end
       end

@@ -4,7 +4,7 @@
 		label_method: :descricao, 
 		:label => "Produto", 
 		:input_html => {class: "prodSelect"},
-		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id).sort_by{|e| e[:descricao]} 
+		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id).uniq.sort_by{|e| e[:descricao]} 
 	%>
 	<%=  f.input :quantidade, :input_html => {:style=> 'width: 70px'}  %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
