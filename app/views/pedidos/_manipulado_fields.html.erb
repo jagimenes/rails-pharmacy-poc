@@ -1,12 +1,7 @@
 <div class="nested-fields well well-compact form-inline">
 	<%=  f.input :id, :as => :hidden %>
-  <%= f.association :especialidade, 
-		label_method: :nome, 
-		:label => "Grupo", 
-		:input_html => {class: "grupoprod"},
-		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,).sort_by{|e| e[:nome]} 	%>
 	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect"}, 
-		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id).sort_by{|e| e[:nome]}   %>	
+		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id).sort_by{|e| e[:nome]} %>	
 	<%=  f.input :quantidade %>
 	<%=  f.input :posologia %>
 	<%= f.association :veiculo, 
