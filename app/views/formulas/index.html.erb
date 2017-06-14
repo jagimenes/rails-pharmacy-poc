@@ -1,5 +1,13 @@
 <h1>Fórmulas</h1>
 <br>
+
+<br>
+<%= link_to 'Mostrar todos', formulas_path, class: "btn btn-warning btn-xs" %>
+<%= link_to 'Filtrar Médico', formulas_path(filtro: true), class: "btn btn-info btn-xs" %>
+<br>
+<br>
+<br>
+
 <table id="formulas" class="table table-bordered table-condensed table-stripped">
   <thead>
     <tr>
@@ -17,11 +25,14 @@
         <% if current_user.role == "admin" %>
         <td><%= link_to 'Editar', edit_formula_path(formula), class: "btn btn-primary btn-xs" %>
         <%= link_to 'Excluir', formula, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
+        <%= link_to 'Usar', new_pedido_path(formula_id: formula.id), class: "btn btn-success btn-xs" %>
         <% elsif current_user.id == formula.user_id %>
         <td><%= link_to 'Editar', edit_formula_path(formula), class: "btn btn-primary btn-xs" %>
         <%= link_to 'Excluir', formula, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: 'Tem certeza que deseja excluir ?' } %>
+        <%= link_to 'Usar', new_pedido_path(formula_id: formula.id), class: "btn btn-success btn-xs" %>
         <% elsif current_user.id != formula.user_id %>
         <td><%= link_to 'Visualizar', formula_path(formula), class: "btn btn-primary btn-xs" %>
+        <%= link_to 'Usar', new_pedido_path(formula_id: formula.id), class: "btn btn-success btn-xs" %>
         <% end %>
         </td>
       </tr>

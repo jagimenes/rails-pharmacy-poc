@@ -1,6 +1,6 @@
 class PedidosController < ApplicationController
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
-
+ 
   # GET /pedidos
   # GET /pedidos.json
   def index
@@ -24,6 +24,11 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
+    if params[:formula_id]
+      @itFormula = Manipulado.new
+      @itFormula.formula_id = params[:formula_id]
+      @pedido.manipulados.push(@itFormula)
+    end
     @unidades = Unidade.all
     @unidadesponto = Unidade.all
     @produtosponto = Produto.all
@@ -115,9 +120,6 @@ class PedidosController < ApplicationController
 
     @manipulados = Manipulado.joins(:pedido).where(' pedidos.id = ?', @pedido.id)
     @manipulados.destroy_all
-
-    @pontos = Ponto.joins(:manipulado).where(' manipulados.pedido_id = ?', @pedido.id)
-    @pontos.destroy_all
 
     @pedido.destroy
     @unidades = Unidade.all

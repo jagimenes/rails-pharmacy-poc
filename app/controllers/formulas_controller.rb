@@ -4,7 +4,11 @@ class FormulasController < ApplicationController
   # GET /formulas
   # GET /formulas.json
   def index
-    @formulas = Formula.where('user_id = ? OR user_id = 3',  current_user.id)
+    if params[:filtro]
+      @formulas = Formula.where('user_id = ?',  current_user.id)
+    else
+      @formulas = Formula.where('user_id = ? OR user_id = 3',  current_user.id)
+    end
     @formulas = @formulas.sort_by{|e| e[:nome]}
   end
 
