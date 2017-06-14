@@ -94,7 +94,7 @@ module GeneratePdf
         end  
         if manipulados.formula
           if manipulados.imprimir
-            if manipulados.pontos
+            if manipulados.pontos.length > 0
               for ingredientes in manipulados.pontos
                 pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
                 pdf.move_down 1
