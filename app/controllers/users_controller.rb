@@ -63,7 +63,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :endereco, :todos, permissaos_attributes: [:id, :especialidade_id, :_destroy])
+    params.require(:user).permit(:superior, :lateral, :role, :endereco, :todos, permissaos_attributes: [:id, :especialidade_id, :_destroy])
   end
 
 end

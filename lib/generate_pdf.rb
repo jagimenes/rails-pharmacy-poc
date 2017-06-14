@@ -17,6 +17,8 @@ module GeneratePdf
     contador = 1
     imprime_contador = true
     #contador_ingredientes = 1
+    
+    PDF_OPTIONS[:margin] = [usuario.superior, usuario.lateral]
     Prawn::Document.new(PDF_OPTIONS) do |pdf|
       # Define a cor do traçado
       pdf.fill_color "666666"

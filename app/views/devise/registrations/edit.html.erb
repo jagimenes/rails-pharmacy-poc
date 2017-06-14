@@ -36,7 +36,18 @@
     <div class="form-group">
       <label for="cabecalho">Exibe cabecalho ?</label>
       <%= f.select :cabecalho, [['Sim', true], ['Não', false]], class: "form-control" %>
-    </div>                    
+    </div>  
+
+    <div class="form-group">
+      <%= f.label "Margem Superior" %>
+      <%= f.text_field :superior, class: 'form-control' %>
+    </div>  
+
+    <div class="form-group">
+      <%= f.label "Margem Lateral" %>
+      <%= f.text_field :lateral, class: 'form-control' %>
+    </div>      
+
     <fieldset>
       <p>Deixe estes campos em branco se não quiser alterar a senha.</p>
       <div class="form-group">

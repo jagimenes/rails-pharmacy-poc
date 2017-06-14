@@ -3,6 +3,15 @@
 <h3>Usuário</h3>
 <p>Nome: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+    <div class="form-group">
+      <%= f.label "Margem Superior" %>
+      <%= f.input :superior, class: 'form-control' %>
+    </div>  
+
+    <div class="form-group">
+      <%= f.label "Margem Lateral" %>
+      <%= f.input :lateral, class: 'form-control' %>
+    </div>  
 <br><br><br><br>
 <h4>Grupos</h4>
 
