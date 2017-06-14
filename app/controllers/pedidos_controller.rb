@@ -25,8 +25,12 @@ class PedidosController < ApplicationController
   def new
     @pedido = Pedido.new
     if params[:formula_id]
+      f = Formula.find(params[:formula_id])
       @itFormula = Manipulado.new
       @itFormula.formula_id = params[:formula_id]
+      @itFormula.quantidade_veiculo = f.quantidade
+      @itFormula.veiculo_id = f.veiculo_id
+      @itFormula.unidade_id = f.unidade_id
       @pedido.manipulados.push(@itFormula)
     end
     @unidades = Unidade.all
