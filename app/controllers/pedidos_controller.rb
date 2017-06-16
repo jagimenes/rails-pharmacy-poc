@@ -78,7 +78,7 @@ class PedidosController < ApplicationController
           puts "Ponto: " + ponto.to_s
           for manipulados in @pedido.manipulados
               puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
-              if manipulados.formula_id = formulaParam[index]
+              if manipulados.formula_id == formulaParam[index]
                   puts "Achou manipulado"
                   manipulados.pontos.push(ponto)
               end
