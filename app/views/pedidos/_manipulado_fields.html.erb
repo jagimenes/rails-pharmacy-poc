@@ -56,24 +56,39 @@ $.ajax({
 
 	});
 
+$(".formSelect").on("change",carregaDados);
 
+    $(".formSelect").ready(function(event) {
+      carregaDados();
+    });
 
-  $(".formSelect").on("change", function() {
-      var formulaNome = this.id;
-      var formula     = $("#" + this.id + " option:selected").val();
-      var objObservacoes = this.id.replace("formula_id", "observacoes");
-      var divPai = $( this.id ).parent().id;
+function carregaDados()
+  {
+      var elemento = "";
+      if (this.id == null)
+      {
+        elemento = document.querySelector(".formSelect");
+      }
+      else
+      {
+        elemento = this;
+      }
+
+      var formulaNome = elemento.id;
+      var formula     = $("#" + elemento.id + " option:selected").val();
+      var objObservacoes = elemento.id.replace("formula_id", "observacoes");
+      var divPai = $( elemento.id ).parent().id;
       var htmlAppend = "";
-      var veiculoNome = this.id.replace("formula_id", "veiculo_id")
-      var veiculoQuantidade = this.id.replace("formula_id", "quantidade_veiculo")
-      var veiculoUnidade = this.id.replace("formula_id", "unidade_id")
-      var formulaQuantidade = this.id.replace("formula_id", "quantidade")
+      var veiculoNome = elemento.id.replace("formula_id", "veiculo_id")
+      var veiculoQuantidade = elemento.id.replace("formula_id", "quantidade_veiculo")
+      var veiculoUnidade = elemento.id.replace("formula_id", "unidade_id")
+      var formulaQuantidade = elemento.id.replace("formula_id", "quantidade")
 
 $.ajax({
              url: "<%= update_ingredientes_path %>", // this will be routed
              type: 'GET',
              data: {
-               formula_id: $("#" + this.id + " option:selected").val()
+               formula_id: $("#" + elemento.id + " option:selected").val()
              },
              async: true,
              dataType: "JSON",
@@ -134,7 +149,7 @@ $.ajax({
              url: "<%= update_veiculo_formula_index_path %>", // this will be routed
              type: 'GET',
              data: {
-               formula_id: $("#" + this.id + " option:selected").val()
+               formula_id: $("#" + elemento.id + " option:selected").val()
              },
              async: true,
              dataType: "JSON",
@@ -206,8 +221,5 @@ $.ajax({
                }
            });
 
-
-
-  });
-
+  }
 </script>
