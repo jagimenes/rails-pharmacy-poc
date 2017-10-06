@@ -4,9 +4,9 @@
   <%= f.association :especialidade, 
 		label_method: :nome, 
 		:label => "Grupo", 
-		:input_html => {class: "grupoprod"},
+		:input_html => {class: "grupoprod selectize", :style => "width: 200px;"},
 		collection: Especialidade.where('id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id,) 	%>
-	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect"},
+	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect selectize", :style => "width: 100px;"},
 		collection: Formula.where(' (user_id = ? OR user_id = 0) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id)   %>	
 	<%=  f.input :quantidade %>
 	<%=  f.input :posologia %>
@@ -17,7 +17,7 @@
 		collection: Veiculo.all 
 	%>
 	<%=  f.input :quantidade_veiculo %>
-	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {class:"selectize", :style => "width: 100px;"} %>
 	Imprime ingredientes ? <%= f.select :imprimir, [['Sim', true], ['Não', false]], class: "form-control" %>
 <br>
 <br><br>

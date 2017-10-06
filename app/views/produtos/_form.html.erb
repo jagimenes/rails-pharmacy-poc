@@ -6,7 +6,7 @@
     <%= f.input :observacoes %>
     <%= f.input :sinonimo, :label => "Sinônimo" %>
     <%= f.input :maximo %>
-    <%= f.association :unidade, label_method: :unidade, :label => "Em", :input_html => {} %>
+    <%= f.association :unidade, label_method: :unidade, :label => "Em", :input_html => {class: "unidadeProduto"} %>
   </div>
 
   <div class="especialidadesProd">
@@ -43,4 +43,13 @@
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+
+<script type="text/javascript">
+$(".selectize").selectize();
+$('form').on('cocoon:after-insert', function(e, addedItem) {
+  $(addedItem).find('.selectize').selectize()
+});
+
+</script>
+
 <% end %>

@@ -83,20 +83,19 @@ module GeneratePdf
       #contador = 1
       for manipulados in pedidoPDF.manipulados do
         if imprime_contador
-          pdf.text contador.to_s + " - #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
+          pdf.text contador.to_s + " - #{manipulados.formula.nome} ", :size => 8#, :align => :left               
           imprime_contador = false
           contador = contador + 1
         else
           if manipulados.formula
             pdf.move_down 1          
-            pdf.text "   #{manipulados.formula.nome} - #{manipulados.quantidade}", :size => 8#, :align => :left               
+            pdf.text "   #{manipulados.formula.nome} ", :size => 8#, :align => :left               
           end
         end  
         if manipulados.formula
-          if manipulados.imprimir
-            if manipulados.pontos.length > 0
-              for ingredientes in manipulados.pontos
-                pdf.text "   #{ingredientes.produto.descricao} - #{ingredientes.quantidade}#{ingredientes.unidade.unidade}", :size => 8#, :align => :left               
+            if manipulados.pontos
+              for pontos in manipulados.pontos
+                pdf.text "   #{pontos.produto.descricao} - #{pontos.quantidade}#{pontos.unidade.unidade}", :size => 8#, :align => :left               
                 pdf.move_down 1
                 #contador_ingredientes = contador_ingredientes + 1
               end       
@@ -116,7 +115,7 @@ module GeneratePdf
               end
               pdf.move_down 1
               imprime_linha = true
-            end
+            
           end
           if manipulados.posologia
             pdf.move_down 2

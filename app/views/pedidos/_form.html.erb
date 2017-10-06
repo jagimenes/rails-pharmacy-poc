@@ -19,7 +19,8 @@
 			</ol>
 		</fieldset>
     </div>
-
+    <br>
+    <br><br><br>
    <div class="manipulados">
 		<%= link_to_add_association 'Adicionar fórmula', f, :manipulados,
 		'data-association-node' => '#manipulados ol',
@@ -33,8 +34,19 @@
 			</ol>
 		</fieldset>
     </div>    
-    <br><br><br><br>
+
+<br><br><br><br>
+
   <div class="form-actions">
     <%= f.button :submit, "Inserir Receita" %>
   </div>
+
+<script type="text/javascript">
+$(".selectize").selectize();
+$('form').on('cocoon:after-insert', function(e, addedItem) {
+  $(addedItem).find('.selectize').selectize()
+});
+
+</script>
+
 <% end %>

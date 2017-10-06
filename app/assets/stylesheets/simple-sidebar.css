@@ -68,12 +68,17 @@
     display: block;
     text-decoration: none;
     color: #FFFFFF;
+    text-transform: uppercase;
 }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
     background: rgba(255,255,255,0.2);
+}
+
+.navbar-right li a:hover {
+    text-transform: uppercase;
 }
 
 .sidebar-nav li a:active,

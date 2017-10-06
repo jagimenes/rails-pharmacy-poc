@@ -3,29 +3,17 @@
 	<%= f.association :produto, 
 		label_method: :descricao, 
 		:label => "Produto", 
-		:input_html => {class: "prodSelect"},
+		:input_html => {class: "prodSelect selectize", :style=> "width: 300px;"},
 		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id).uniq.sort_by{|e| e[:descricao]} 
 	%>
-	<%=  f.input :quantidade, :label=> "Conc./dosagem", :input_html => {:style=> 'width: 70px'}  %>
-	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
-	<%=  f.input :posologia %>
-	<%= f.association :veiculo, 
-		label_method: :nome, 
-		:label => "Veiculo", 
-		:input_html => {class: "veicSelect"},
-		collection: Veiculo.all 
-	%>
-	<%=  f.input :quantidade_veiculo , :label => "Qtd.  Veic.", :input_html => {:style=> 'width: 70px'}   %>
-	<%= f.label :unidade_veiculo_id, "Un. Veic."%>
-	<%= f.select :unidade_veiculo_id,
-	     @unidades.map{ |c| [c.unidade, c.id] },
-	     {:include_blank => true}, 
-	     { :class => 'form-control'}
-	     %>
+	<%=  f.input :quantidade, :label=> "Conc./dosagem", :input_html => {:style=> 'margin-left:30px; width: 70px'}  %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {class:"unidProd selectize", :style=> 'margin-left:30px; width: 130px'} %>
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
 
 <script>
+
+
 	$(".grupoprod").on("change", function() {
   		var produtoNome = this.id.replace("especialidade_id", "produto_id")
 $.ajax({

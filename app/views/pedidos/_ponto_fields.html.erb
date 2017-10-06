@@ -1,0 +1,12 @@
+<div class="nested-fields well well-compact form-inline pontosAdded">
+	<%=  f.input :id, :as => :hidden %>
+	<%= f.association :produto, 
+		label_method: :descricao, 
+		:label => "Produto", 
+		:input_html => {class: "PontoprodSelect", :style=> 'width: 300px'},
+		collection: Produto.joins(:grupos).where('grupos.especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id).uniq.sort_by{|e| e[:descricao]} 
+	%>
+	<%=  f.input :quantidade, :label=> "Conc./dosagem", :input_html => {class: "Pontoprodqtd", :style=> 'margin-left:30px; width: 70px'}  %>
+	<%= f.association :unidade, label_method: :unidade, :input_html => {class: "Pontoprodunidade ", :style=> 'margin-left:30px; width: 100px; '} %>
+    <%= link_to_remove_association button_tag('x', type: "button", class: "close closePontos"), f %>
+</div>

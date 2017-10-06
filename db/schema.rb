@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614021944) do
+ActiveRecord::Schema.define(version: 20170809004713) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -152,6 +152,15 @@ ActiveRecord::Schema.define(version: 20170614021944) do
     t.integer  "unidade_id"
     t.string   "sinonimo"
     t.index ["unidade_id"], name: "index_produtos_on_unidade_id"
+  end
+
+  create_table "receita", force: :cascade do |t|
+    t.string   "paciente"
+    t.integer  "user_id"
+    t.string   "conteudo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_receita_on_user_id"
   end
 
   create_table "unidades", force: :cascade do |t|

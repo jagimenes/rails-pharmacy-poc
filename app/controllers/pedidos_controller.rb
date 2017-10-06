@@ -31,6 +31,13 @@ class PedidosController < ApplicationController
       @itFormula.quantidade_veiculo = f.quantidade
       @itFormula.veiculo_id = f.veiculo_id
       @itFormula.unidade_id = f.unidade_id
+      for ingrediente in f.ingredientes
+          p = Ponto.new
+          p.produto_id = ingrediente.produto_id
+          p.unidade_id = ingrediente.unidade_id
+          p.quantidade = ingrediente.quantidade
+          @itFormula.pontos.push(p)
+      end
       @pedido.manipulados.push(@itFormula)
     end
     @unidades = Unidade.all
@@ -66,25 +73,25 @@ class PedidosController < ApplicationController
     @pedido.user_id = current_user.id
 
 
-      #Adiciona os ingredientes dos produtos
-    produtos_id  = params[:idproduto]
-    unidades_id  = params[:idunidade]
-    quantidades  = params[:quantidadeproduto]
-    formulaParam = params[:idFormula]
+#      #Adiciona os ingredientes dos produtos
+#    produtos_id  = params[:idproduto]
+#    unidades_id  = params[:idunidade]
+#    quantidades  = params[:quantidadeproduto]
+#    formulaParam = params[:idFormula]
 
-      if produtos_id
-        produtos_id.each_with_index do |produto, index|
-          ponto = Ponto.new :produto_id => produtos_id[index], :unidade_id => unidades_id[index], :quantidade => quantidades[index]
-          puts "Ponto: " + ponto.to_s
-          for manipulados in @pedido.manipulados
-              puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
-              if manipulados.formula_id == formulaParam[index]
-                  puts "Achou manipulado"
-                  manipulados.pontos.push(ponto)
-              end
-          end
-        end
-      end
+#      if produtos_id
+#        produtos_id.each_with_index do |produto, index|
+#          ponto = Ponto.new :produto_id => produtos_id[index], :unidade_id => unidades_id[index], :quantidade => quantidades[index]
+#          puts "Ponto: " + ponto.to_s
+#          for manipulados in @pedido.manipulados
+#              puts "For manipulados, FORMULA ID: " + manipulados.formula_id.to_s + " E FORMULA INDEX: " + formulaParam[index]
+#              if manipulados.formula_id == formulaParam[index]
+#                  puts "Achou manipulado"
+#                  manipulados.pontos.push(ponto)
+#              end
+#          end
+#        end
+#      end
 
 
       if @pedido.save

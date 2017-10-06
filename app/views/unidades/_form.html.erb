@@ -4,11 +4,15 @@
   <div class="form-inputs">
     <%= f.input :unidade %>
     <%= f.input :descricao %>
-    <%= f.association :pai, label_method: :pai, :label => "Unidade Pai", :input_html => {} %>
+    <%= f.association :pai, label_method: :pai, :label => "Unidade Pai", :input_html => {class: "form-control selectpicker unidPai", data: { live_search: 'true' } } %>
     <%= f.input :fator, :label => "Fator de conversão" %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+  <script type="text/javascript">
+      $(".unidPai").selectize();
+  </script>
 <% end %>
+

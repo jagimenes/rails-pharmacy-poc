@@ -1,32 +1,48 @@
 <div class="nested-fields well well-compact form-inline">
 	<%=  f.input :id, :as => :hidden %>
-	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect"}, 
+	<%= f.association :formula, label_method: :nome, :label => "Fórmula", :input_html => {class: "formSelect selectize", :style=> 'width: 300px'}, 
 		collection: Formula.where(' (user_id = ? OR user_id = 0 OR user_id = 5 OR user_id = 3) AND especialidade_id IN (SELECT "permissaos".especialidade_id FROM "permissaos" WHERE "permissaos"."user_id" = ? ) ', current_user.id, current_user.id).uniq.sort_by{|e| e[:nome]} %>	
-	<%=  f.input :quantidade %>
-	<%=  f.input :posologia %>
-	<%= f.association :veiculo, 
-		label_method: :nome, 
-		:label => "Veiculo", 
-		:input_html => {class: "veicSelect"},
-		collection: Veiculo.all 
-	%>
-	<%=  f.input :quantidade_veiculo %>
-	<%= f.association :unidade, label_method: :unidade, :input_html => {} %>
-  Imprime ingredientes ? <%= f.select :imprimir, [['Sim', true], ['Não', false]], class: "form-control" %>
+	
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
+
 <br>
 <br><br>
 
 <div id="ingredientes">
-  <h4>Ingredientes:</h4>
-  <%=  f.input :observacoes, :label => false, :disabled => true %>
+<br>
+     <div class="pontos">
+    <%= link_to_add_association 'Adicionar Ingrediente', f, :pontos,
+    'data-association-node' => '#pontos ol',
+    'data-association-insertion-method' => 'after', class: 'btn btn-success btn-sm botaoAddIngrediente' %>
+
+    <fieldset id='pontos'>
+      <ol>
+        <%= f.fields_for :pontos do |ponto| %>
+          <%= render partial: "ponto_fields", locals: {f: ponto} %>
+        <% end %>
+      </ol>
+    </fieldset>
+    </div>
+
 </div>
-
-
+<br><br><br>
+<div class="nested-fields form-inline">
+  <%=  f.input :posologia %>
+  <%= f.association :veiculo, 
+    label_method: :nome, 
+    :label => "Veiculo", 
+    :input_html => {class: "veicSelect", style: "width: 170px;"},
+    collection: Veiculo.all 
+  %>
+  <%=  f.input :quantidade_veiculo, :input_html => {style: "width: 100px;"} %>
+  <%= f.association :unidade, label_method: :unidade, :input_html => {class: "unidVeic", style: "width: 100px;"} %>
+</div>
 
 </div>
 
 <script>
+
+
 	$(".grupoprod").on("change", function() {
   		var produtoNome = this.id.replace("especialidade_id", "formula_id")
 $.ajax({
@@ -65,13 +81,16 @@ $(".formSelect").on("change",carregaDados);
 function carregaDados()
   {
       var elemento = "";
+      var evento   = false;
       if (this.id == null)
       {
         elemento = document.querySelector(".formSelect");
+        evento = false;
       }
       else
       {
         elemento = this;
+        evento = true;
       }
 
       var formulaNome = elemento.id;
@@ -99,14 +118,54 @@ $.ajax({
                 // here we iterate the json result
                 htmlAppend += " <div id='" + objObservacoes + "' class='" + objObservacoes + "' name='" + objObservacoes + "' >"; 
                 htmlAppend += "<table>"
+                if ((evento == true))
+                {
+                  //primeiro exclui os existentes
+                  var ingreditentesAntigos = elemento.parentNode.parentNode.querySelectorAll(".closePontos");
+                  console.log(ingreditentesAntigos);
+                  for (var olds = 0; olds < ingreditentesAntigos.length; olds++)
+                    {
+                        ingreditentesAntigos[olds].click();
+                    }
                 for(var i in data)
                   {
-                    var produto_id = data[i].produto_id;
-                    var produto_nome = data[i].produto_descricao;
+                    var produto_id      = data[i].produto_id;
+                    var produto_nome    = data[i].produto_descricao;
                     var unidade_unidade = data[i].unidade.unidade;
-                    var unidade_id = data[i].unidade.id;
-                    var quantidade = data[i].quantidade;
-                    var editar     = data[i].editar;
+                    var unidade_id      = data[i].unidade.id;
+                    var quantidade      = data[i].quantidade;
+                    var editar          = data[i].editar;
+                    elemento.parentNode.parentNode.querySelector(".botaoAddIngrediente").click();
+
+                    var p = elemento.parentNode.parentNode.querySelectorAll(".PontoprodSelect")[0]
+                    var q = elemento.parentNode.parentNode.querySelectorAll(".Pontoprodqtd")[0]
+                    var s = elemento.parentNode.parentNode.querySelectorAll(".Pontoprodunidade")[0]
+                    //while (p.options.length > 0) {
+                    //  p.remove(p.options.length - 1);
+                    //}
+
+                    //while (s.options.length > 0) {
+                     // s.remove(s.options.length - 1);
+                    //}  
+                    p.value = produto_id;
+                    q.value = quantidade;                  
+                    s.value = unidade_id
+                    //var opt = document.createElement('option');
+
+                    //opt.text = produto_nome;
+                    //opt.value = produto_id;
+                    //p.add(opt, null);
+
+                    //var opt2 = document.createElement('option');
+
+                    //opt2.text = unidade_unidade;
+                    //opt2.value = unidade_id;
+                    //s.add(opt2, null);
+
+                   
+
+
+                    /*
                     htmlAppend += "<th><tr> <td>Produto</td> <td></td> <td></td> <td>Quantidade</td> <td></td> <td>Unidade</td> </tr></th>"
                     htmlAppend += "<tr>";
                     htmlAppend += "<td>";
@@ -127,7 +186,7 @@ $.ajax({
                     }
                     else
                     {
-                     htmlAppend += "<input type='number' name='quantidadeproduto[]' value='" + quantidade + "' readonly >"; 
+                     htmlAppend += "<input type='number' name='quantidadeproduto[]' value='" + quantidade + "' >"; 
                     }
                     htmlAppend += "</td>";
                     htmlAppend += "<td>";
@@ -137,10 +196,13 @@ $.ajax({
                     htmlAppend += "<input type='text' name='unidade_unidade[]' value='" + unidade_unidade + "' readonly>";
                     htmlAppend += "</td>";                    
                     htmlAppend += "</tr>";
+                    */
                   }                  
-                htmlAppend += "</table>";
-                htmlAppend += "</div>";
-                $("#" + objObservacoes).replaceWith(htmlAppend);
+                 } 
+                //htmlAppend += "</table>";
+                //htmlAppend += "</div>";
+                //$("#" + objObservacoes).replaceWith(htmlAppend);
+                
              }
            });
 
