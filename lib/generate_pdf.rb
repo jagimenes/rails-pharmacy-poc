@@ -79,6 +79,12 @@ module GeneratePdf
           imprime_linha = false
         end
       end
+      pdf.move_down 1
+      if !pedidoPDF.posologia.empty
+        pdf.text '   ' + "#{pedidoPDF.posologia}".center("#{pedidoPDF.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
+        pdf.move_down 1
+      end
+
       #pdf.move_down 20
       #contador = 1
       for manipulados in pedidoPDF.manipulados do

@@ -20,6 +20,8 @@
 		</fieldset>
     </div>
     <br>
+    <%= f.label :posologia, "Posologia" %>
+    <%= f.text_area :posologia, rows: 5, cols: 100, class: "form-control" %>
     <br><br><br>
    <div class="manipulados">
 		<%= link_to_add_association 'Adicionar fórmula', f, :manipulados,

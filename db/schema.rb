@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809004713) do
+ActiveRecord::Schema.define(version: 20171011013139) do
 
   create_table "diluentes", force: :cascade do |t|
     t.integer  "produto_id"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20170809004713) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.string   "posologia"
     t.index ["user_id"], name: "index_pedidos_on_user_id"
   end
 

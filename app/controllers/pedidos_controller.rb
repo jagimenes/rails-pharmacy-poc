@@ -150,6 +150,6 @@ class PedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pedido_params
-      params.require(:pedido).permit(:user_id, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:imprimir, :id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id, pontos_attributes: [:id, :_destroy, :produto_id, :quantidade, :unidade_id ] ] )
+      params.require(:pedido).permit(:user_id, :posologia, :especialidade_id, :paciente, items_attributes: [:id, :especialidade_id, :quantidade, :_destroy, :produto_id, :unidade_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_veiculo_id ], manipulados_attributes: [:imprimir, :id, :formula_id, :quantidade, :_destroy, :produto_id, :posologia, :veiculo_id, :quantidade_veiculo, :unidade_id, :especialidade_id, pontos_attributes: [:id, :_destroy, :produto_id, :quantidade, :unidade_id ] ] )
     end
 end
