@@ -65,7 +65,7 @@ module GeneratePdf
             imprime_linha = true
           end        
           if items.posologia
-            if !items.posologia.empty?
+            if items.posologia.size > 0
               pdf.move_down 2
               pdf.text '   ' + "#{items.posologia}".center("#{items.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
           end
@@ -81,7 +81,7 @@ module GeneratePdf
       end
       pdf.move_down 1
 	  if pedidoPDF.posologia
-		  if !pedidoPDF.posologia.empty
+		  if pedidoPDF.posologia.size > 0
 			pdf.text '   ' + "#{pedidoPDF.posologia}".center("#{pedidoPDF.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
 			pdf.move_down 1
 		  end
