@@ -80,10 +80,12 @@ module GeneratePdf
         end
       end
       pdf.move_down 1
-      if !pedidoPDF.posologia.empty
-        pdf.text '   ' + "#{pedidoPDF.posologia}".center("#{pedidoPDF.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
-        pdf.move_down 1
-      end
+	  if pedidoPDF.posologia
+		  if !pedidoPDF.posologia.empty
+			pdf.text '   ' + "#{pedidoPDF.posologia}".center("#{pedidoPDF.posologia}".length + 3), :size => 8, :kerning => false#, :align => :left               
+			pdf.move_down 1
+		  end
+	  end
 
       #pdf.move_down 20
       #contador = 1
