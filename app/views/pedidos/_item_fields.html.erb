@@ -15,7 +15,7 @@
 		:input_html => {class: "form-control veicSelect selectize", :style => "width: 100px;"},
 		collection: Veiculo.all 
 	%>
-	<%=  f.input :quantidade_veiculo %>
+	<%=  f.input :quantidade_veiculo , :label=> "Qtd", :input_html => {:style=> 'margin-left:30px; width: 70px'}  %>
 	<%= f.label :unidade_veiculo_id%>
 	<%= f.select :unidade_veiculo_id,
 	     @unidades.map{ |c| [c.unidade, c.id] },
