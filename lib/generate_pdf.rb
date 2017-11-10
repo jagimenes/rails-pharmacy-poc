@@ -73,7 +73,7 @@ module GeneratePdf
         end
         if imprime_linha
           pdf.move_down 1
-          #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
           pdf.move_down 10
           imprime_linha = false
@@ -136,7 +136,7 @@ module GeneratePdf
 
         if imprime_linha
           pdf.move_down 1
-          #pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
+          pdf.text "___________________________________________________________________", :size => 8, :style => :bold, :align => :left
           imprime_contador = true
           pdf.move_down 10
           imprime_linha = false

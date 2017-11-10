@@ -8,6 +8,20 @@
 	%>
 	<%=  f.input :quantidade, :label=> "Conc./dosagem", :input_html => {:style=> 'margin-left:30px; width: 70px'}  %>
 	<%= f.association :unidade, label_method: :unidade, :input_html => {class:"unidProd selectize", :style=> 'margin-left:30px; width: 130px'} %>
+	<%=  f.input :posologia %>
+	<%= f.association :veiculo, 
+		label_method: :nome, 
+		:label => "Veiculo", 
+		:input_html => {class: "form-control veicSelect selectize", :style => "width: 100px;"},
+		collection: Veiculo.all 
+	%>
+	<%=  f.input :quantidade_veiculo %>
+	<%= f.label :unidade_veiculo_id%>
+	<%= f.select :unidade_veiculo_id,
+	     @unidades.map{ |c| [c.unidade, c.id] },
+	     {:include_blank => true}, 
+	     { :class => 'form-control selectize unidVeic', :style => "width: 100px;"}
+	     %>	
     <%= link_to_remove_association button_tag('x', type: "button", class: "close"), f %>
 </div>
 
